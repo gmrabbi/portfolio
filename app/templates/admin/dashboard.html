@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="py-20 bg-dark">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-3xl font-bold text-primary mb-2">Admin Dashboard</h1>
+                <p class="text-gray-400">Manage your portfolio content</p>
+            </div>
+            <a href="{{ url_for('auth.logout') }}" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors">
+                <i class="fas fa-sign-out-alt mr-2"></i>Logout
+            </a>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-dark/50 p-6 rounded-xl border border-primary/20">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-400 text-sm">Projects</p>
+                        <p class="text-2xl font-bold text-primary">{{ projects_count }}</p>
+                    </div>
+                    <i class="fas fa-project-diagram text-primary text-2xl"></i>
+                </div>
+            </div>
+
+            <div class="bg-dark/50 p-6 rounded-xl border border-secondary/20">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-400 text-sm">Skills</p>
+                        <p class="text-2xl font-bold text-secondary">{{ skills_count }}</p>
+                    </div>
+                    <i class="fas fa-code text-secondary text-2xl"></i>
+                </div>
+            </div>
+
+            <div class="bg-dark/50 p-6 rounded-xl border border-accent/20">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-400 text-sm">Publications</p>
+                        <p class="text-2xl font-bold text-accent">{{ publications_count }}</p>
+                    </div>
+                    <i class="fas fa-book text-accent text-2xl"></i>
+                </div>
+            </div>
+
+            <div class="bg-dark/50 p-6 rounded-xl border border-primary/20">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-400 text-sm">Messages</p>
+                        <p class="text-2xl font-bold text-primary">{{ messages_count }}</p>
+                    </div>
+                    <i class="fas fa-envelope text-primary text-2xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <a href="{{ url_for('admin.profile') }}" class="bg-dark/50 p-6 rounded-xl border border-primary/20 hover:border-primary/40 transition-all group">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                        <i class="fas fa-user text-primary"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-white">Profile</h3>
+                        <p class="text-gray-400 text-sm">Update personal information</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="{{ url_for('admin.projects') }}" class="bg-dark/50 p-6 rounded-xl border border-secondary/20 hover:border-secondary/40 transition-all group">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center group-hover:bg-secondary/20 transition-colors">
+                        <i class="fas fa-project-diagram text-secondary"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-white">Projects</h3>
+                        <p class="text-gray-400 text-sm">Manage portfolio projects</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="{{ url_for('admin.skills') }}" class="bg-dark/50 p-6 rounded-xl border border-accent/20 hover:border-accent/40 transition-all group">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                        <i class="fas fa-code text-accent"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-white">Skills</h3>
+                        <p class="text-gray-400 text-sm">Update technical skills</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="{{ url_for('admin.publications') }}" class="bg-dark/50 p-6 rounded-xl border border-primary/20 hover:border-primary/40 transition-all group">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                        <i class="fas fa-book text-primary"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-white">Publications</h3>
+                        <p class="text-gray-400 text-sm">Manage research work</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="{{ url_for('admin.messages') }}" class="bg-dark/50 p-6 rounded-xl border border-secondary/20 hover:border-secondary/40 transition-all group">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center group-hover:bg-secondary/20 transition-colors">
+                        <i class="fas fa-envelope text-secondary"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-white">Messages</h3>
+                        <p class="text-gray-400 text-sm">View contact messages</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="{{ url_for('main.index') }}" class="bg-dark/50 p-6 rounded-xl border border-accent/20 hover:border-accent/40 transition-all group">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                        <i class="fas fa-eye text-accent"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-white">View Portfolio</h3>
+                        <p class="text-gray-400 text-sm">Preview your portfolio</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

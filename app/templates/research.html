@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="py-20 bg-dark">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h1 class="text-4xl font-bold text-primary mb-4">Research & Publications</h1>
+            <p class="text-gray-400">Academic contributions and research work</p>
+        </div>
+
+        <div class="space-y-8">
+            {% for publication in publications %}
+                <div class="bg-dark/50 backdrop-blur-sm rounded-xl p-6 border border-secondary/20 hover:border-secondary/40 transition-all">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex-1">
+                            <h3 class="text-xl font-semibold text-white mb-2">{{ publication.title }}</h3>
+                            <p class="text-secondary font-medium mb-1">{{ publication.journal }}</p>
+                            {% if publication.authors %}
+                                <p class="text-gray-400 text-sm mb-2">Authors: {{ publication.authors }}</p>
+                            {% endif %}
+                            <div class="flex items-center space-x-4 text-sm text-gray-400">
+                                {% if publication.publication_date %}
+                                    <span><i class="fas fa-calendar mr-1"></i>{{ publication.publication_date.strftime('%B %Y') }}</span>
+                                {% endif %}
+                                <span class="bg-secondary/10 text-secondary px-2 py-1 rounded">{{ publication.status }}</span>
+                            </div>
+                        </div>
+                        {% if publication.link %}
+                            <a href="{{ publication.link }}" target="_blank" class="text-primary hover:text-accent transition-colors">
+                                <i class="fas fa-external-link-alt text-xl"></i>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% if not publications %}
+            <div class="text-center py-12">
+                <i class="fas fa-book text-6xl text-gray-600 mb-4"></i>
+                <h3 class="text-xl font-semibold text-gray-400 mb-2">No Publications Yet</h3>
+                <p class="text-gray-500">Research publications will be displayed here once added to the portfolio.</p>
+            </div>
+        {% endif %}
+
+        <!-- Research Interests -->
+        <div class="mt-16">
+            <h2 class="text-3xl font-bold text-secondary mb-8 text-center">Research Interests</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-dark/50 p-6 rounded-xl border border-primary/20 text-center">
+                    <i class="fas fa-brain text-primary text-3xl mb-4"></i>
+                    <h3 class="text-xl font-semibold text-white mb-2">Deep Learning</h3>
+                    <p class="text-gray-400">Neural network architectures, optimization algorithms, and model interpretability</p>
+                </div>
+                <div class="bg-dark/50 p-6 rounded-xl border border-accent/20 text-center">
+                    <i class="fas fa-eye text-accent text-3xl mb-4"></i>
+                    <h3 class="text-xl font-semibold text-white mb-2">Computer Vision</h3>
+                    <p class="text-gray-400">Image recognition, object detection, and visual understanding systems</p>
+                </div>
+                <div class="bg-dark/50 p-6 rounded-xl border border-secondary/20 text-center">
+                    <i class="fas fa-microchip text-secondary text-3xl mb-4"></i>
+                    <h3 class="text-xl font-semibold text-white mb-2">IoT & Edge AI</h3>
+                    <p class="text-gray-400">Embedded AI systems, sensor networks, and real-time processing</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

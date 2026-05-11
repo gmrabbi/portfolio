@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="py-20 bg-dark">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-primary">{% if project %}Edit{% else %}New{% endif %} Project</h1>
+            <a href="{{ url_for('admin.projects') }}" class="text-primary hover:text-accent transition-colors">
+                <i class="fas fa-arrow-left mr-2"></i>Back to Projects
+            </a>
+        </div>
+
+        <div class="bg-dark/50 backdrop-blur-sm rounded-xl p-8 border border-primary/20">
+            <form method="POST" enctype="multipart/form-data" class="space-y-6">
+                {{ form.hidden_tag() }}
+
+                <div>
+                    {{ form.title.label(class="block text-gray-300 mb-2") }}
+                    {{ form.title(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                    {% if form.title.errors %}
+                        <div class="text-red-400 text-sm mt-1">{% for error in form.title.errors %}{{ error }}{% endfor %}</div>
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ form.description.label(class="block text-gray-300 mb-2") }}
+                    {{ form.description(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors resize-none", rows="5") }}
+                    {% if form.description.errors %}
+                        <div class="text-red-400 text-sm mt-1">{% for error in form.description.errors %}{{ error }}{% endfor %}</div>
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ form.technologies.label(class="block text-gray-300 mb-2") }}
+                    {{ form.technologies(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors", placeholder="Python, TensorFlow, OpenCV (comma-separated)") }}
+                    {% if form.technologies.errors %}
+                        <div class="text-red-400 text-sm mt-1">{% for error in form.technologies.errors %}{{ error }}{% endfor %}</div>
+                    {% endif %}
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        {{ form.github_link.label(class="block text-gray-300 mb-2") }}
+                        {{ form.github_link(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                        {% if form.github_link.errors %}
+                            <div class="text-red-400 text-sm mt-1">{% for error in form.github_link.errors %}{{ error }}{% endfor %}</div>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        {{ form.demo_link.label(class="block text-gray-300 mb-2") }}
+                        {{ form.demo_link(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                        {% if form.demo_link.errors %}
+                            <div class="text-red-400 text-sm mt-1">{% for error in form.demo_link.errors %}{{ error }}{% endfor %}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div>
+                    {{ form.image.label(class="block text-gray-300 mb-2") }}
+                    {{ form.image(class="w-full") }}
+                    {% if form.image.errors %}
+                        <div class="text-red-400 text-sm mt-1">{% for error in form.image.errors %}{{ error }}{% endfor %}</div>
+                    {% endif %}
+                </div>
+
+                <div class="flex items-center">
+                    {{ form.featured(class="mr-2") }}
+                    {{ form.featured.label(class="text-gray-300") }}
+                </div>
+
+                <div class="flex space-x-4">
+                    {{ form.submit(class="bg-primary text-dark font-semibold py-3 px-6 rounded-lg hover:bg-primary/80 transition-colors") }}
+                    <a href="{{ url_for('admin.projects') }}" class="bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-gray-700 transition-colors">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

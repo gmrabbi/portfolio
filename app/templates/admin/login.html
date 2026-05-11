@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="min-h-screen flex items-center justify-center bg-dark">
+    <div class="max-w-md w-full mx-4">
+        <div class="bg-dark/50 backdrop-blur-sm rounded-xl p-8 border border-primary/20">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-primary mb-2">Admin Login</h1>
+                <p class="text-gray-400">Access the portfolio management system</p>
+            </div>
+
+            <form method="POST" class="space-y-6">
+                {{ form.hidden_tag() }}
+
+                <div>
+                    {{ form.username.label(class="block text-gray-300 mb-2") }}
+                    {{ form.username(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                    {% if form.username.errors %}
+                        <div class="text-red-400 text-sm mt-1">
+                            {% for error in form.username.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ form.password.label(class="block text-gray-300 mb-2") }}
+                    {{ form.password(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                    {% if form.password.errors %}
+                        <div class="text-red-400 text-sm mt-1">
+                            {% for error in form.password.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="flex items-center">
+                    {{ form.remember(class="mr-2") }}
+                    {{ form.remember.label(class="text-gray-300") }}
+                </div>
+
+                {{ form.submit(class="w-full bg-primary text-dark font-semibold py-3 rounded-lg hover:bg-primary/80 transition-colors") }}
+            </form>
+
+            <div class="mt-6 text-center">
+                <a href="{{ url_for('main.index') }}" class="text-primary hover:text-accent transition-colors">
+                    ← Back to Portfolio
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

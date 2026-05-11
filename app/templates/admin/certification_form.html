@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="py-20 bg-dark">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-primary">{% if certification %}Edit{% else %}New{% endif %} Certification</h1>
+            <a href="{{ url_for('admin.dashboard') }}" class="text-primary hover:text-accent transition-colors">
+                <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
+            </a>
+        </div>
+
+        <div class="bg-dark/50 backdrop-blur-sm rounded-xl p-8 border border-primary/20">
+            <form method="POST" class="space-y-6">
+                {{ form.hidden_tag() }}
+
+                <div>
+                    {{ form.title.label(class="block text-gray-300 mb-2") }}
+                    {{ form.title(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                    {% if form.title.errors %}
+                        <div class="text-red-400 text-sm mt-1">{% for error in form.title.errors %}{{ error }}{% endfor %}</div>
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ form.issuer.label(class="block text-gray-300 mb-2") }}
+                    {{ form.issuer(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                    {% if form.issuer.errors %}
+                        <div class="text-red-400 text-sm mt-1">{% for error in form.issuer.errors %}{{ error }}{% endfor %}</div>
+                    {% endif %}
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        {{ form.issue_date.label(class="block text-gray-300 mb-2") }}
+                        {{ form.issue_date(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                        {% if form.issue_date.errors %}
+                            <div class="text-red-400 text-sm mt-1">{% for error in form.issue_date.errors %}{{ error }}{% endfor %}</div>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        {{ form.expiry_date.label(class="block text-gray-300 mb-2") }}
+                        {{ form.expiry_date(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                        {% if form.expiry_date.errors %}
+                            <div class="text-red-400 text-sm mt-1">{% for error in form.expiry_date.errors %}{{ error }}{% endfor %}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        {{ form.credential_id.label(class="block text-gray-300 mb-2") }}
+                        {{ form.credential_id(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                        {% if form.credential_id.errors %}
+                            <div class="text-red-400 text-sm mt-1">{% for error in form.credential_id.errors %}{{ error }}{% endfor %}</div>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        {{ form.credential_url.label(class="block text-gray-300 mb-2") }}
+                        {{ form.credential_url(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                        {% if form.credential_url.errors %}
+                            <div class="text-red-400 text-sm mt-1">{% for error in form.credential_url.errors %}{{ error }}{% endfor %}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="flex space-x-4">
+                    {{ form.submit(class="bg-primary text-dark font-semibold py-3 px-6 rounded-lg hover:bg-primary/80 transition-colors") }}
+                    <a href="{{ url_for('admin.dashboard') }}" class="bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-gray-700 transition-colors">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

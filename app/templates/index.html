@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="min-h-screen flex items-center justify-center bg-gradient-to-br from-dark via-dark/95 to-secondary/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="space-y-8">
+            <!-- Profile Image -->
+            <div class="relative">
+                <div class="w-32 h-32 mx-auto rounded-full bg-gradient-to-r from-primary to-accent p-1">
+                    <div class="w-full h-full rounded-full bg-dark flex items-center justify-center">
+                        <i class="fas fa-user text-4xl text-primary"></i>
+                    </div>
+                </div>
+                <div class="absolute -inset-1 rounded-full bg-gradient-to-r from-primary to-accent opacity-75 blur animate-pulse"></div>
+            </div>
+
+            <!-- Name and Title -->
+            <div class="space-y-4">
+                <h1 class="text-5xl md:text-7xl font-bold bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
+                    Golam Mostafa Rabby
+                </h1>
+                <div class="text-xl md:text-2xl text-gray-300">
+                    <span id="typed-text" class="text-primary font-semibold"></span>
+                    <span class="animate-pulse">|</span>
+                </div>
+                <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+                    Machine Learning & AI Engineer specializing in Computer Vision, Deep Learning, and IoT Systems
+                </p>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#about" class="bg-primary text-dark px-8 py-3 rounded-lg font-semibold hover:bg-primary/80 transition-all transform hover:scale-105">
+                    <i class="fas fa-user mr-2"></i>Learn More
+                </a>
+                <a href="{{ url_for('main.download_resume') }}" class="border-2 border-primary text-primary px-8 py-3 rounded-lg font-semibold hover:bg-primary hover:text-dark transition-all transform hover:scale-105">
+                    <i class="fas fa-download mr-2"></i>Download Resume
+                </a>
+                <a href="{{ url_for('main.contact') }}" class="border-2 border-accent text-accent px-8 py-3 rounded-lg font-semibold hover:bg-accent hover:text-dark transition-all transform hover:scale-105">
+                    <i class="fas fa-envelope mr-2"></i>Contact Me
+                </a>
+            </div>
+
+            <!-- Social Links -->
+            <div class="flex justify-center space-x-6 pt-8">
+                {% if user %}
+                    {% if user.github %}
+                        <a href="{{ user.github }}" class="text-gray-400 hover:text-primary text-2xl transition-colors transform hover:scale-110">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    {% endif %}
+                    {% if user.linkedin %}
+                        <a href="{{ user.linkedin }}" class="text-gray-400 hover:text-primary text-2xl transition-colors transform hover:scale-110">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    {% endif %}
+                    {% if user.kaggle %}
+                        <a href="{{ user.kaggle }}" class="text-gray-400 hover:text-primary text-2xl transition-colors transform hover:scale-110">
+                            <i class="fab fa-kaggle"></i>
+                        </a>
+                    {% endif %}
+                    {% if user.scholar %}
+                        <a href="{{ user.scholar }}" class="text-gray-400 hover:text-primary text-2xl transition-colors transform hover:scale-110">
+                            <i class="fab fa-google"></i>
+                        </a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <i class="fas fa-chevron-down text-primary text-2xl"></i>
+    </div>
+</section>
+
+<!-- About Preview -->
+<section id="about" class="py-20 bg-dark/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-primary mb-4">About Me</h2>
+            <p class="text-gray-400 max-w-2xl mx-auto">
+                CSE undergraduate at DUET, Bangladesh with expertise in AI/ML technologies
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6">
+                {% if user and user.about %}
+                    <p class="text-gray-300 leading-relaxed">{{ user.about }}</p>
+                {% else %}
+                    <p class="text-gray-300 leading-relaxed">
+                        Passionate Machine Learning Engineer with expertise in Computer Vision, Deep Learning, and IoT systems.
+                        Currently pursuing Computer Science & Engineering at Dhaka University of Engineering & Technology.
+                    </p>
+                {% endif %}
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-dark/50 p-4 rounded-lg border border-primary/20">
+                        <div class="text-2xl font-bold text-primary">3+</div>
+                        <div class="text-gray-400">Years Experience</div>
+                    </div>
+                    <div class="bg-dark/50 p-4 rounded-lg border border-accent/20">
+                        <div class="text-2xl font-bold text-accent">10+</div>
+                        <div class="text-gray-400">Projects Completed</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <h3 class="text-2xl font-semibold text-secondary">Core Competencies</h3>
+                <div class="space-y-4">
+                    {% for skill in skills[:6] %}
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-300">{{ skill.name }}</span>
+                            <div class="w-24 bg-dark/50 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full" style="width: {{ skill.proficiency }}%"></div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Projects -->
+<section class="py-20 bg-gradient-to-r from-dark to-secondary/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-primary mb-4">Featured Projects</h2>
+            <p class="text-gray-400">Showcasing innovative AI/ML solutions</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            {% for project in projects %}
+                <div class="bg-dark/50 backdrop-blur-sm rounded-xl p-6 border border-primary/20 hover:border-primary/40 transition-all transform hover:scale-105">
+                    {% if project.image %}
+                        <img src="{{ url_for('static', filename='uploads/projects/' + project.image) }}" alt="{{ project.title }}" class="w-full h-48 object-cover rounded-lg mb-4">
+                    {% else %}
+                        <div class="w-full h-48 bg-gradient-to-r from-primary/20 to-accent/20 rounded-lg mb-4 flex items-center justify-center">
+                            <i class="fas fa-project-diagram text-4xl text-primary"></i>
+                        </div>
+                    {% endif %}
+
+                    <h3 class="text-xl font-semibold text-white mb-2">{{ project.title }}</h3>
+                    <p class="text-gray-400 text-sm mb-4 line-clamp-3">{{ project.description }}</p>
+
+                    {% if project.technologies %}
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            {% for tech in project.technologies.split(',') %}
+                                <span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs">{{ tech.strip() }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <div class="flex space-x-4">
+                        {% if project.github_link %}
+                            <a href="{{ project.github_link }}" class="text-primary hover:text-accent transition-colors">
+                                <i class="fab fa-github"></i> Code
+                            </a>
+                        {% endif %}
+                        {% if project.demo_link %}
+                            <a href="{{ project.demo_link }}" class="text-accent hover:text-primary transition-colors">
+                                <i class="fas fa-external-link-alt"></i> Demo
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center mt-12">
+            <a href="{{ url_for('main.projects') }}" class="bg-secondary text-white px-8 py-3 rounded-lg font-semibold hover:bg-secondary/80 transition-all">
+                View All Projects
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Typing effect
+    const texts = ['Machine Learning Engineer', 'AI Specialist', 'Computer Vision Expert', 'IoT Developer'];
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    const typedText = document.getElementById('typed-text');
+
+    function typeWriter() {
+        const currentText = texts[textIndex];
+
+        if (isDeleting) {
+            typedText.textContent = currentText.substring(0, charIndex - 1);
+            charIndex--;
+        } else {
+            typedText.textContent = currentText.substring(0, charIndex + 1);
+            charIndex++;
+        }
+
+        if (!isDeleting && charIndex === currentText.length) {
+            isDeleting = true;
+            setTimeout(typeWriter, 2000);
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            textIndex = (textIndex + 1) % texts.length;
+            setTimeout(typeWriter, 500);
+        } else {
+            setTimeout(typeWriter, isDeleting ? 100 : 150);
+        }
+    }
+
+    typeWriter();
+</script>
+{% endblock %}

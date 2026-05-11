@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="py-20 bg-dark">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-primary">{% if publication %}Edit{% else %}New{% endif %} Publication</h1>
+            <a href="{{ url_for('admin.publications') }}" class="text-primary hover:text-accent transition-colors">
+                <i class="fas fa-arrow-left mr-2"></i>Back to Publications
+            </a>
+        </div>
+
+        <div class="bg-dark/50 backdrop-blur-sm rounded-xl p-8 border border-primary/20">
+            <form method="POST" class="space-y-6">
+                {{ form.hidden_tag() }}
+
+                <div>
+                    {{ form.title.label(class="block text-gray-300 mb-2") }}
+                    {{ form.title(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                    {% if form.title.errors %}
+                        <div class="text-red-400 text-sm mt-1">{% for error in form.title.errors %}{{ error }}{% endfor %}</div>
+                    {% endif %}
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        {{ form.journal.label(class="block text-gray-300 mb-2") }}
+                        {{ form.journal(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                        {% if form.journal.errors %}
+                            <div class="text-red-400 text-sm mt-1">{% for error in form.journal.errors %}{{ error }}{% endfor %}</div>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        {{ form.status.label(class="block text-gray-300 mb-2") }}
+                        {{ form.status(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                        {% if form.status.errors %}
+                            <div class="text-red-400 text-sm mt-1">{% for error in form.status.errors %}{{ error }}{% endfor %}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div>
+                    {{ form.authors.label(class="block text-gray-300 mb-2") }}
+                    {{ form.authors(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                    {% if form.authors.errors %}
+                        <div class="text-red-400 text-sm mt-1">{% for error in form.authors.errors %}{{ error }}{% endfor %}</div>
+                    {% endif %}
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        {{ form.publication_date.label(class="block text-gray-300 mb-2") }}
+                        {{ form.publication_date(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                        {% if form.publication_date.errors %}
+                            <div class="text-red-400 text-sm mt-1">{% for error in form.publication_date.errors %}{{ error }}{% endfor %}</div>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        {{ form.link.label(class="block text-gray-300 mb-2") }}
+                        {{ form.link(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                        {% if form.link.errors %}
+                            <div class="text-red-400 text-sm mt-1">{% for error in form.link.errors %}{{ error }}{% endfor %}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="flex space-x-4">
+                    {{ form.submit(class="bg-primary text-dark font-semibold py-3 px-6 rounded-lg hover:bg-primary/80 transition-colors") }}
+                    <a href="{{ url_for('admin.publications') }}" class="bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-gray-700 transition-colors">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

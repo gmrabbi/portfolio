@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Golam Mostafa Rabby - Machine Learning & AI Engineer Portfolio">
+    <meta name="keywords" content="AI, Machine Learning, Computer Vision, IoT, Python, Deep Learning">
+    <meta name="author" content="Golam Mostafa Rabby">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00F5FF',
+                        secondary: '#7C3AED',
+                        accent: '#00FFA3',
+                        dark: '#050816'
+                    },
+                    fontFamily: {
+                        'mono': ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <title>{% if title %}{{ title }} - {% endif %}Golam Mostafa Rabby</title>
+</head>
+<body class="bg-dark text-white min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-dark/90 backdrop-blur-md z-50 border-b border-primary/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="{{ url_for('main.index') }}" class="text-primary font-bold text-xl">GMR</a>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="{{ url_for('main.index') }}" class="text-white hover:text-primary transition-colors">Home</a>
+                    <a href="{{ url_for('main.about') }}" class="text-white hover:text-primary transition-colors">About</a>
+                    <a href="{{ url_for('main.projects') }}" class="text-white hover:text-primary transition-colors">Projects</a>
+                    <a href="{{ url_for('main.research') }}" class="text-white hover:text-primary transition-colors">Research</a>
+                    <a href="{{ url_for('main.contact') }}" class="text-white hover:text-primary transition-colors">Contact</a>
+                    <a href="{{ url_for('main.download_resume') }}" class="bg-primary text-dark px-4 py-2 rounded-lg hover:bg-primary/80 transition-colors">
+                        <i class="fas fa-download mr-2"></i>Resume
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-white hover:text-primary">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4">
+                <a href="{{ url_for('main.index') }}" class="block py-2 text-white hover:text-primary">Home</a>
+                <a href="{{ url_for('main.about') }}" class="block py-2 text-white hover:text-primary">About</a>
+                <a href="{{ url_for('main.projects') }}" class="block py-2 text-white hover:text-primary">Projects</a>
+                <a href="{{ url_for('main.research') }}" class="block py-2 text-white hover:text-primary">Research</a>
+                <a href="{{ url_for('main.contact') }}" class="block py-2 text-white hover:text-primary">Contact</a>
+                <a href="{{ url_for('main.download_resume') }}" class="block py-2 mt-2 bg-primary text-dark px-4 py-2 rounded-lg inline-block">
+                    <i class="fas fa-download mr-2"></i>Resume
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="fixed top-20 right-4 z-50 space-y-2">
+                {% for category, message in messages %}
+                    <div class="bg-{{ 'green' if category == 'success' else 'red' }}-500 text-white px-4 py-2 rounded-lg shadow-lg">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Main Content -->
+    <main class="pt-16">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark/50 border-t border-primary/20 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-400">&copy; 2024 Golam Mostafa Rabby. All rights reserved.</p>
+            <div class="mt-4 flex justify-center space-x-6">
+                {% if user %}
+                    {% if user.github %}<a href="{{ user.github }}" class="text-gray-400 hover:text-primary"><i class="fab fa-github"></i></a>{% endif %}
+                    {% if user.linkedin %}<a href="{{ user.linkedin }}" class="text-gray-400 hover:text-primary"><i class="fab fa-linkedin"></i></a>{% endif %}
+                    {% if user.kaggle %}<a href="{{ user.kaggle }}" class="text-gray-400 hover:text-primary"><i class="fab fa-kaggle"></i></a>{% endif %}
+                    {% if user.scholar %}<a href="{{ user.scholar }}" class="text-gray-400 hover:text-primary"><i class="fab fa-google"></i></a>{% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Auto-hide flash messages
+        setTimeout(() => {
+            const messages = document.querySelectorAll('.bg-green-500, .bg-red-500');
+            messages.forEach(msg => msg.style.display = 'none');
+        }, 5000);
+    </script>
+
+</body>
+</html>

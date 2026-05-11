@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="py-20 bg-dark">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h1 class="text-4xl font-bold text-primary mb-4">Get In Touch</h1>
+            <p class="text-gray-400">Let's discuss your next AI/ML project</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12">
+            <!-- Contact Form -->
+            <div class="bg-dark/50 backdrop-blur-sm rounded-xl p-8 border border-primary/20">
+                <h2 class="text-2xl font-semibold text-white mb-6">Send a Message</h2>
+
+                <form method="POST" class="space-y-6">
+                    {{ form.hidden_tag() }}
+
+                    <div>
+                        {{ form.name.label(class="block text-gray-300 mb-2") }}
+                        {{ form.name(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                        {% if form.name.errors %}
+                            <div class="text-red-400 text-sm mt-1">
+                                {% for error in form.name.errors %}{{ error }}{% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        {{ form.email.label(class="block text-gray-300 mb-2") }}
+                        {{ form.email(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                        {% if form.email.errors %}
+                            <div class="text-red-400 text-sm mt-1">
+                                {% for error in form.email.errors %}{{ error }}{% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        {{ form.subject.label(class="block text-gray-300 mb-2") }}
+                        {{ form.subject(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                        {% if form.subject.errors %}
+                            <div class="text-red-400 text-sm mt-1">
+                                {% for error in form.subject.errors %}{{ error }}{% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        {{ form.message.label(class="block text-gray-300 mb-2") }}
+                        {{ form.message(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors resize-none", rows="5") }}
+                        {% if form.message.errors %}
+                            <div class="text-red-400 text-sm mt-1">
+                                {% for error in form.message.errors %}{{ error }}{% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    {{ form.submit(class="w-full bg-primary text-dark font-semibold py-3 rounded-lg hover:bg-primary/80 transition-colors transform hover:scale-105") }}
+                </form>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="space-y-8">
+                <div>
+                    <h2 class="text-2xl font-semibold text-white mb-6">Contact Information</h2>
+
+                    <div class="space-y-6">
+                        {% if user %}
+                            {% if user.email %}
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-envelope text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-gray-400 text-sm">Email</p>
+                                        <p class="text-white">{{ user.email }}</p>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            {% if user.phone %}
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-phone text-accent"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-gray-400 text-sm">Phone</p>
+                                        <p class="text-white">{{ user.phone }}</p>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            {% if user.location %}
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-map-marker-alt text-secondary"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-gray-400 text-sm">Location</p>
+                                        <p class="text-white">{{ user.location }}</p>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Social Links -->
+                <div>
+                    <h3 class="text-xl font-semibold text-white mb-4">Connect With Me</h3>
+                    <div class="flex space-x-4">
+                        {% if user %}
+                            {% if user.github %}
+                                <a href="{{ user.github }}" target="_blank" class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary hover:bg-primary hover:text-dark transition-all transform hover:scale-110">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            {% endif %}
+                            {% if user.linkedin %}
+                                <a href="{{ user.linkedin }}" target="_blank" class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary hover:bg-primary hover:text-dark transition-all transform hover:scale-110">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                            {% endif %}
+                            {% if user.kaggle %}
+                                <a href="{{ user.kaggle }}" target="_blank" class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary hover:bg-primary hover:text-dark transition-all transform hover:scale-110">
+                                    <i class="fab fa-kaggle"></i>
+                                </a>
+                            {% endif %}
+                            {% if user.scholar %}
+                                <a href="{{ user.scholar }}" target="_blank" class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary hover:bg-primary hover:text-dark transition-all transform hover:scale-110">
+                                    <i class="fab fa-google"></i>
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="bg-dark/50 p-6 rounded-xl border border-accent/20">
+                    <h3 class="text-lg font-semibold text-accent mb-4">Why Work With Me?</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-accent mr-2"></i>
+                            Expertise in AI/ML technologies
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-accent mr-2"></i>
+                            Hands-on project experience
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-accent mr-2"></i>
+                            Research publication experience
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-accent mr-2"></i>
+                            Strong problem-solving skills
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

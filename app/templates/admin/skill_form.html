@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="py-20 bg-dark">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-primary">{% if skill %}Edit{% else %}Add{% endif %} Skill</h1>
+            <a href="{{ url_for('admin.skills') }}" class="text-primary hover:text-accent transition-colors">
+                <i class="fas fa-arrow-left mr-2"></i>Back to Skills
+            </a>
+        </div>
+
+        <div class="bg-dark/50 backdrop-blur-sm rounded-xl p-8 border border-primary/20">
+            <form method="POST" class="space-y-6">
+                {{ form.hidden_tag() }}
+
+                <div>
+                    {{ form.category.label(class="block text-gray-300 mb-2") }}
+                    {{ form.category(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                    {% if form.category.errors %}
+                        <div class="text-red-400 text-sm mt-1">{% for error in form.category.errors %}{{ error }}{% endfor %}</div>
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ form.name.label(class="block text-gray-300 mb-2") }}
+                    {{ form.name(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                    {% if form.name.errors %}
+                        <div class="text-red-400 text-sm mt-1">{% for error in form.name.errors %}{{ error }}{% endfor %}</div>
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ form.proficiency.label(class="block text-gray-300 mb-2") }}
+                    {{ form.proficiency(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors", type="range", min="1", max="100") }}
+                    <div class="flex justify-between text-gray-400 text-sm mt-2">
+                        <span>Beginner (1)</span>
+                        <span id="proficiency-value">{{ form.proficiency.data or 50 }}%</span>
+                        <span>Expert (100)</span>
+                    </div>
+                    {% if form.proficiency.errors %}
+                        <div class="text-red-400 text-sm mt-1">{% for error in form.proficiency.errors %}{{ error }}{% endfor %}</div>
+                    {% endif %}
+                </div>
+
+                <div class="flex space-x-4">
+                    {{ form.submit(class="bg-primary text-dark font-semibold py-3 px-6 rounded-lg hover:bg-primary/80 transition-colors") }}
+                    <a href="{{ url_for('admin.skills') }}" class="bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-gray-700 transition-colors">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script>
+    const proficiencyInput = document.querySelector('input[type="range"]');
+    const valueDisplay = document.getElementById('proficiency-value');
+    proficiencyInput.addEventListener('input', function() {
+        valueDisplay.textContent = this.value + '%';
+    });
+</script>
+{% endblock %}

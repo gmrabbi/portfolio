@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="py-20 bg-dark">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-primary">Message Details</h1>
+            <a href="{{ url_for('admin.messages') }}" class="text-primary hover:text-accent transition-colors">
+                <i class="fas fa-arrow-left mr-2"></i>Back to Messages
+            </a>
+        </div>
+
+        <div class="bg-dark/50 backdrop-blur-sm rounded-xl p-8 border border-primary/20">
+            <div class="space-y-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <p class="text-gray-400 text-sm mb-1">From</p>
+                        <p class="text-xl font-semibold text-white">{{ message.name }}</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-400 text-sm mb-1">Email</p>
+                        <a href="mailto:{{ message.email }}" class="text-primary hover:text-accent transition-colors">{{ message.email }}</a>
+                    </div>
+                </div>
+
+                <div>
+                    <p class="text-gray-400 text-sm mb-1">Subject</p>
+                    <p class="text-lg font-semibold text-white">{{ message.subject }}</p>
+                </div>
+
+                <div>
+                    <p class="text-gray-400 text-sm mb-1">Date</p>
+                    <p class="text-gray-300">{{ message.created_at.strftime('%B %d, %Y at %I:%M %p') }}</p>
+                </div>
+
+                <div class="border-t border-primary/20 pt-6">
+                    <p class="text-gray-400 text-sm mb-3">Message</p>
+                    <div class="bg-dark/50 p-6 rounded-lg border border-primary/10">
+                        <p class="text-gray-300 leading-relaxed whitespace-pre-wrap">{{ message.message }}</p>
+                    </div>
+                </div>
+
+                <div class="flex space-x-4 pt-6 border-t border-primary/20">
+                    <a href="mailto:{{ message.email }}?subject=Re: {{ message.subject }}" class="bg-primary text-dark font-semibold py-3 px-6 rounded-lg hover:bg-primary/80 transition-colors">
+                        <i class="fas fa-reply mr-2"></i>Reply
+                    </a>
+                    <form method="POST" action="{{ url_for('admin.delete_message', id=message.id) }}" onsubmit="return confirm('Delete this message?');">
+                        <button type="submit" class="bg-red-500 text-white font-semibold py-3 px-6 rounded-lg hover:bg-red-600 transition-colors">
+                            <i class="fas fa-trash mr-2"></i>Delete
+                        </button>
+                    </form>
+                    <a href="{{ url_for('admin.messages') }}" class="bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-gray-700 transition-colors">
+                        Back
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

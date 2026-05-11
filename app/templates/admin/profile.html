@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="py-20 bg-dark">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-3xl font-bold text-primary mb-2">Edit Profile</h1>
+                <p class="text-gray-400">Update your portfolio information</p>
+            </div>
+            <a href="{{ url_for('admin.dashboard') }}" class="text-primary hover:text-accent transition-colors">
+                <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
+            </a>
+        </div>
+
+        <div class="bg-dark/50 backdrop-blur-sm rounded-xl p-8 border border-primary/20">
+            <form method="POST" class="space-y-6">
+                {{ form.hidden_tag() }}
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        {{ form.name.label(class="block text-gray-300 mb-2") }}
+                        {{ form.name(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                        {% if form.name.errors %}
+                            <div class="text-red-400 text-sm mt-1">{% for error in form.name.errors %}{{ error }}{% endfor %}</div>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        {{ form.title.label(class="block text-gray-300 mb-2") }}
+                        {{ form.title(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                        {% if form.title.errors %}
+                            <div class="text-red-400 text-sm mt-1">{% for error in form.title.errors %}{{ error }}{% endfor %}</div>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        {{ form.email.label(class="block text-gray-300 mb-2") }}
+                        {{ form.email(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                        {% if form.email.errors %}
+                            <div class="text-red-400 text-sm mt-1">{% for error in form.email.errors %}{{ error }}{% endfor %}</div>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        {{ form.phone.label(class="block text-gray-300 mb-2") }}
+                        {{ form.phone(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                        {% if form.phone.errors %}
+                            <div class="text-red-400 text-sm mt-1">{% for error in form.phone.errors %}{{ error }}{% endfor %}</div>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        {{ form.location.label(class="block text-gray-300 mb-2") }}
+                        {{ form.location(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                        {% if form.location.errors %}
+                            <div class="text-red-400 text-sm mt-1">{% for error in form.location.errors %}{{ error }}{% endfor %}</div>
+                        {% endif %}
+                    </div>
+
+                    <div></div>
+
+                    <div>
+                        {{ form.github.label(class="block text-gray-300 mb-2") }}
+                        {{ form.github(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                        {% if form.github.errors %}
+                            <div class="text-red-400 text-sm mt-1">{% for error in form.github.errors %}{{ error }}{% endfor %}</div>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        {{ form.linkedin.label(class="block text-gray-300 mb-2") }}
+                        {{ form.linkedin(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                        {% if form.linkedin.errors %}
+                            <div class="text-red-400 text-sm mt-1">{% for error in form.linkedin.errors %}{{ error }}{% endfor %}</div>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        {{ form.kaggle.label(class="block text-gray-300 mb-2") }}
+                        {{ form.kaggle(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                        {% if form.kaggle.errors %}
+                            <div class="text-red-400 text-sm mt-1">{% for error in form.kaggle.errors %}{{ error }}{% endfor %}</div>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        {{ form.scholar.label(class="block text-gray-300 mb-2") }}
+                        {{ form.scholar(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                        {% if form.scholar.errors %}
+                            <div class="text-red-400 text-sm mt-1">{% for error in form.scholar.errors %}{{ error }}{% endfor %}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div>
+                    {{ form.about.label(class="block text-gray-300 mb-2") }}
+                    {{ form.about(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors resize-none", rows="6") }}
+                    {% if form.about.errors %}
+                        <div class="text-red-400 text-sm mt-1">{% for error in form.about.errors %}{{ error }}{% endfor %}</div>
+                    {% endif %}
+                </div>
+
+                <div class="flex space-x-4">
+                    {{ form.submit(class="bg-primary text-dark font-semibold py-3 px-6 rounded-lg hover:bg-primary/80 transition-colors") }}
+                    <a href="{{ url_for('admin.dashboard') }}" class="bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-gray-700 transition-colors">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
