@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, request
+from flask import Blueprint, render_template, redirect, url_for, flash, request, current_app
 from flask_login import login_required
 from app import db
 from app.models.user import User
@@ -96,16 +96,23 @@ def edit_project(id):
     form = ProjectForm(obj=project)
 
     if form.validate_on_submit():
+        # Handle image separately
+        new_image_filename = project.image  # Keep existing image by default
+        
         if form.image.data:
             # Delete old image if exists
             if project.image:
                 old_image_path = os.path.join('app/static/uploads/projects', project.image)
                 if os.path.exists(old_image_path):
                     os.remove(old_image_path)
+            # Save new image and get filename
+            new_image_filename = save_image(form.image.data, 'projects')
 
-            project.image = save_image(form.image.data, 'projects')
-
+        # Populate form data first
         form.populate_obj(project)
+        # Then set the correct image filename to prevent FileStorage object from being stored
+        project.image = new_image_filename
+        
         db.session.commit()
         flash('Project updated successfully!', 'success')
         return redirect(url_for('admin.projects'))
@@ -196,13 +203,18 @@ def new_publication():
     form = PublicationForm()
 
     if form.validate_on_submit():
+        image_filename = None
+        if form.image.data:
+            image_filename = save_image(form.image.data, 'publications')
+
         publication = Publication(
             title=form.title.data,
             journal=form.journal.data,
             authors=form.authors.data,
             link=form.link.data,
             status=form.status.data,
-            publication_date=form.publication_date.data
+            publication_date=form.publication_date.data,
+            image=image_filename
         )
         db.session.add(publication)
         db.session.commit()
@@ -219,7 +231,22 @@ def edit_publication(id):
     form = PublicationForm(obj=publication)
 
     if form.validate_on_submit():
+        # Handle image separately
+        new_image_filename = publication.image  # Keep existing image by default
+        
+        if form.image.data:
+            if publication.image:
+                old_image_path = os.path.join(current_app.root_path, 'static/uploads/publications', publication.image)
+                if os.path.exists(old_image_path):
+                    os.remove(old_image_path)
+            # Save new image and get filename
+            new_image_filename = save_image(form.image.data, 'publications')
+
+        # Populate form data first
         form.populate_obj(publication)
+        # Then set the correct image filename to prevent FileStorage object from being stored
+        publication.image = new_image_filename
+        
         db.session.commit()
         flash('Publication updated successfully!', 'success')
         return redirect(url_for('admin.publications'))

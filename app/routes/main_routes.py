@@ -18,14 +18,34 @@ def index():
     """Home page with hero section"""
     user = User.query.first()
     skills = Skill.query.all()
-    projects = Project.query.filter_by(featured=True).all()
-    return render_template('index.html', user=user, skills=skills, projects=projects, title='Home')
+    projects = Project.query.filter_by(featured=True).order_by(Project.created_at.desc()).all()
+    publications = Publication.query.order_by(Publication.publication_date.desc()).limit(3).all()
+    
+    # Get stats
+    total_projects = Project.query.count()
+    total_publications = Publication.query.count()
+    total_leadership = LeadershipActivity.query.count()
+    years_experience = user.years_of_experience if user else 0
+    
+    return render_template(
+        'index.html',
+        user=user,
+        skills=skills,
+        projects=projects,
+        publications=publications,
+        total_projects=total_projects,
+        total_publications=total_publications,
+        total_leadership=total_leadership,
+        years_experience=years_experience,
+        title='Home'
+    )
 
 @main.route('/about')
 def about():
     """About page"""
     user = User.query.first()
-    return render_template('about.html', user=user, title='About')
+    leadership_activities = LeadershipActivity.query.order_by(LeadershipActivity.start_date.desc()).all()
+    return render_template('about.html', user=user, leadership_activities=leadership_activities, title='About')
 
 @main.route('/projects')
 def projects():

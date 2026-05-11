@@ -7,12 +7,10 @@
         <div class="space-y-8">
             <!-- Profile Image -->
             <div class="relative">
-                <div class="w-32 h-32 mx-auto rounded-full bg-gradient-to-r from-primary to-accent p-1">
-                    <div class="w-full h-full rounded-full bg-dark flex items-center justify-center">
-                        <i class="fas fa-user text-4xl text-primary"></i>
-                    </div>
+                <div class="absolute -inset-1 rounded-full bg-gradient-to-r from-primary to-accent opacity-50 blur animate-pulse"></div>
+                <div class="w-32 h-32 mx-auto rounded-full bg-gradient-to-r from-primary to-accent p-1 relative z-10">
+                    <img src="{{ url_for('static', filename='images/profile.jpg') }}" alt="Profile Image" class="w-full h-full rounded-full object-cover">
                 </div>
-                <div class="absolute -inset-1 rounded-full bg-gradient-to-r from-primary to-accent opacity-75 blur animate-pulse"></div>
             </div>
 
             <!-- Name and Title -->
@@ -97,14 +95,22 @@
                     </p>
                 {% endif %}
 
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="bg-dark/50 p-4 rounded-lg border border-primary/20">
-                        <div class="text-2xl font-bold text-primary">3+</div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-dark/50 p-4 rounded-lg border border-primary/20 hover:border-primary/40 transition-all">
+                        <div class="text-2xl font-bold text-primary">{{ years_experience }}+</div>
                         <div class="text-gray-400">Years Experience</div>
                     </div>
-                    <div class="bg-dark/50 p-4 rounded-lg border border-accent/20">
-                        <div class="text-2xl font-bold text-accent">10+</div>
+                    <div class="bg-dark/50 p-4 rounded-lg border border-accent/20 hover:border-accent/40 transition-all">
+                        <div class="text-2xl font-bold text-accent">{{ total_projects }}</div>
                         <div class="text-gray-400">Projects Completed</div>
+                    </div>
+                    <div class="bg-dark/50 p-4 rounded-lg border border-secondary/20 hover:border-secondary/40 transition-all">
+                        <div class="text-2xl font-bold text-secondary">{{ total_publications }}</div>
+                        <div class="text-gray-400">Research Publications</div>
+                    </div>
+                    <div class="bg-dark/50 p-4 rounded-lg border border-accent/20 hover:border-accent/40 transition-all">
+                        <div class="text-2xl font-bold text-accent">{{ total_leadership }}</div>
+                        <div class="text-gray-400">Leadership Activities</div>
                     </div>
                 </div>
             </div>
@@ -113,10 +119,37 @@
                 <h3 class="text-2xl font-semibold text-secondary">Core Competencies</h3>
                 <div class="space-y-4">
                     {% for skill in skills[:6] %}
-                        <div class="flex items-center justify-between">
-                            <span class="text-gray-300">{{ skill.name }}</span>
-                            <div class="w-24 bg-dark/50 rounded-full h-2">
-                                <div class="bg-primary h-2 rounded-full" style="width: {{ skill.proficiency }}%"></div>
+                        <div class="group relative">
+                            <!-- Gradient Background -->
+                            <div class="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-accent/10 rounded-xl blur-lg group-hover:blur-2xl transition-all duration-300 opacity-0 group-hover:opacity-100"></div>
+                            
+                            <!-- Card Container -->
+                            <div class="relative bg-dark/40 backdrop-blur-md p-5 rounded-xl border border-primary/20 group-hover:border-primary/40 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-primary/20">
+                                <!-- Header -->
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="text-gray-200 font-semibold text-sm uppercase tracking-wide">{{ skill.name }}</span>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-xs font-bold text-primary bg-primary/20 px-3 py-1 rounded-full">{{ skill.proficiency }}%</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Progress Bar Container -->
+                                <div class="relative h-2.5 rounded-full bg-white/5 overflow-hidden border border-white/10">
+                                    <!-- Animated Gradient Background -->
+                                    <div class="absolute inset-0 bg-gradient-to-r from-primary/50 via-accent/50 to-secondary/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                    
+                                    <!-- Progress Fill -->
+                                    <div class="h-full rounded-full bg-gradient-to-r from-primary via-accent to-secondary shadow-lg shadow-primary/50 transition-all duration-500" style="width: {{ skill.proficiency }}%">
+                                        <!-- Shimmer Effect -->
+                                        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pulse rounded-full"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Skill Details -->
+                                <div class="flex items-center justify-between mt-3 text-xs text-gray-400">
+                                    <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">Expert</span>
+                                    <span class="group-hover:text-primary transition-colors duration-300">Proficiency</span>
+                                </div>
                             </div>
                         </div>
                     {% endfor %}
@@ -175,6 +208,50 @@
         <div class="text-center mt-12">
             <a href="{{ url_for('main.projects') }}" class="bg-secondary text-white px-8 py-3 rounded-lg font-semibold hover:bg-secondary/80 transition-all">
                 View All Projects
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Research -->
+<section class="py-20 bg-dark/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-primary mb-4">Featured Research</h2>
+            <p class="text-gray-400">Recent research, papers and academic work with visual highlights.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            {% for publication in publications %}
+                <div class="bg-dark/50 backdrop-blur-sm rounded-xl p-6 border border-secondary/20 hover:border-secondary/40 transition-all transform hover:scale-105">
+                    {% if publication.image %}
+                        <img src="{{ url_for('static', filename='uploads/publications/' + publication.image) }}" alt="{{ publication.title }}" class="w-full h-48 object-cover rounded-lg mb-4">
+                    {% else %}
+                        <div class="w-full h-48 bg-gradient-to-r from-secondary/20 to-accent/20 rounded-lg mb-4 flex items-center justify-center text-primary text-4xl">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                    {% endif %}
+
+                    <h3 class="text-xl font-semibold text-white mb-2">{{ publication.title }}</h3>
+                    <p class="text-secondary font-medium mb-2">{{ publication.journal }}</p>
+                    <p class="text-gray-400 text-sm mb-4 line-clamp-3">{{ publication.authors or 'Academic research contributor' }}</p>
+                    <div class="flex items-center justify-between text-sm text-gray-400">
+                        {% if publication.publication_date %}
+                            <span><i class="fas fa-calendar mr-1"></i>{{ publication.publication_date.strftime('%b %Y') }}</span>
+                        {% endif %}
+                        <span class="bg-secondary/10 text-secondary px-2 py-1 rounded">{{ publication.status }}</span>
+                    </div>
+                    {% if publication.link %}
+                        <a href="{{ publication.link }}" target="_blank" class="inline-flex items-center mt-4 text-primary hover:text-accent transition-colors">
+                            <i class="fas fa-external-link-alt mr-2"></i>View Publication
+                        </a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-12">
+            <a href="{{ url_for('main.research') }}" class="bg-primary text-dark px-8 py-3 rounded-lg font-semibold hover:bg-primary/80 transition-all">
+                Explore Research
             </a>
         </div>
     </div>

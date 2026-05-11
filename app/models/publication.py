@@ -8,6 +8,7 @@ class Publication(db.Model):
     journal = db.Column(db.String(200), nullable=False)
     authors = db.Column(db.String(500))
     link = db.Column(db.String(500))
+    image = db.Column(db.String(300))
     status = db.Column(db.String(100), default='Published')  # Published, In Review, etc.
     publication_date = db.Column(db.Date)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)

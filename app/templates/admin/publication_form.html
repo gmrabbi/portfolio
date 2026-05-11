@@ -11,7 +11,7 @@
         </div>
 
         <div class="bg-dark/50 backdrop-blur-sm rounded-xl p-8 border border-primary/20">
-            <form method="POST" class="space-y-6">
+            <form method="POST" enctype="multipart/form-data" class="space-y-6">
                 {{ form.hidden_tag() }}
 
                 <div>
@@ -64,6 +64,14 @@
                             <div class="text-red-400 text-sm mt-1">{% for error in form.link.errors %}{{ error }}{% endfor %}</div>
                         {% endif %}
                     </div>
+                </div>
+
+                <div>
+                    {{ form.image.label(class="block text-gray-300 mb-2") }}
+                    {{ form.image(class="w-full") }}
+                    {% if form.image.errors %}
+                        <div class="text-red-400 text-sm mt-1">{% for error in form.image.errors %}{{ error }}{% endfor %}</div>
+                    {% endif %}
                 </div>
 
                 <div class="flex space-x-4">

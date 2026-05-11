@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, TextAreaField, DateField, SelectField, SubmitField
 from wtforms.validators import DataRequired, Optional, URL
 
@@ -15,4 +16,5 @@ class PublicationForm(FlaskForm):
         ('Submitted', 'Submitted')
     ], validators=[DataRequired()])
     publication_date = DateField('Publication Date', validators=[Optional()])
+    image = FileField('Publication Image', validators=[FileAllowed(['jpg', 'png', 'jpeg', 'gif'])])
     submit = SubmitField('Save Publication')

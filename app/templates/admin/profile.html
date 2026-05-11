@@ -58,7 +58,29 @@
                         {% endif %}
                     </div>
 
-                    <div></div>
+                    <div>
+                        {{ form.school.label(class="block text-gray-300 mb-2") }}
+                        {{ form.school(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                        {% if form.school.errors %}
+                            <div class="text-red-400 text-sm mt-1">{% for error in form.school.errors %}{{ error }}{% endfor %}</div>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        {{ form.college.label(class="block text-gray-300 mb-2") }}
+                        {{ form.college(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                        {% if form.college.errors %}
+                            <div class="text-red-400 text-sm mt-1">{% for error in form.college.errors %}{{ error }}{% endfor %}</div>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        {{ form.university.label(class="block text-gray-300 mb-2") }}
+                        {{ form.university(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                        {% if form.university.errors %}
+                            <div class="text-red-400 text-sm mt-1">{% for error in form.university.errors %}{{ error }}{% endfor %}</div>
+                        {% endif %}
+                    </div>
 
                     <div>
                         {{ form.github.label(class="block text-gray-300 mb-2") }}

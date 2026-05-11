@@ -13,5 +13,8 @@ class ProfileForm(FlaskForm):
     linkedin = StringField('LinkedIn URL', validators=[Optional(), URL()])
     kaggle = StringField('Kaggle URL', validators=[Optional(), URL()])
     scholar = StringField('Google Scholar URL', validators=[Optional(), URL()])
+    school = StringField('High School', validators=[Optional()])
+    college = StringField('College', validators=[Optional()])
+    university = StringField('University', validators=[Optional()])
     about = TextAreaField('About', validators=[DataRequired()])
     submit = SubmitField('Update Profile')
