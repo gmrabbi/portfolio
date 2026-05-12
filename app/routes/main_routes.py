@@ -88,6 +88,9 @@ def contact():
 def download_resume():
     """Generate and download resume PDF"""
     user = User.query.first()
+    if not user:
+        return "Resume data not available. Please contact administrator.", 503
+    
     skills = Skill.query.all()
     projects = Project.query.all()
     publications = Publication.query.all()
