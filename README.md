@@ -98,6 +98,66 @@ portfolio/
    - Portfolio: http://localhost:5000
    - Admin: http://localhost:5000/auth/login (admin/admin123)
 
+## 🚀 Deployment
+
+### Render Deployment
+
+1. **Connect your GitHub repository to Render**
+
+2. **Create a new Web Service** with the following settings:
+   - **Runtime**: Python 3
+   - **Build Command**: `pip install -r requirements.txt && flask db upgrade`
+   - **Start Command**: `gunicorn run:application`
+   - **Environment Variables**:
+     - `FLASK_CONFIG`: `ProductionConfig`
+     - `SECRET_KEY`: Your secret key
+     - `DATABASE_URL`: (provided by Render for PostgreSQL, or use SQLite)
+     - `MAIL_SERVER`, `MAIL_USERNAME`, `MAIL_PASSWORD`: For contact form
+
+3. **Database**: Use Render's PostgreSQL or keep SQLite for simple deployment
+
+4. **Static Files**: Served directly by Flask (consider CDN for production)
+
+### Vercel Deployment
+
+1. **Connect your GitHub repository to Vercel**
+
+2. **Configure build settings**:
+   - **Framework Preset**: Other
+   - **Root Directory**: (leave empty)
+   - **Build Command**: `pip install -r requirements.txt && flask db upgrade`
+   - **Output Directory**: (leave empty)
+   - **Install Command**: `pip install -r requirements.txt`
+   - **Start Command**: `gunicorn run:application`
+
+3. **Environment Variables**: Same as Render
+
+### Environment Variables
+
+Create a `.env` file or set in deployment platform:
+
+```env
+SECRET_KEY=your-secret-key-here
+DATABASE_URL=sqlite:///portfolio.db  # or PostgreSQL URL
+MAIL_SERVER=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=your-email@gmail.com
+MAIL_PASSWORD=your-app-password
+```
+
+## 🔍 SEO & Performance
+
+- **SEO**: Meta tags, Open Graph, structured data, sitemap.xml, robots.txt
+- **Performance**: Lazy loading images, cache headers, optimized assets
+- **Accessibility**: ARIA labels, keyboard navigation, semantic HTML
+
+## 📧 Contact
+
+Golam Mostafa Rabby
+- Email: golam.mostafa.rabby@example.com
+- LinkedIn: https://linkedin.com/in/golammostrabby
+- GitHub: https://github.com/golammostrabby
+
 ## 🔧 Configuration
 
 ### Environment Variables

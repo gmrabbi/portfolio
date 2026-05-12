@@ -171,7 +171,7 @@
             {% for project in projects %}
                 <div class="bg-dark/50 backdrop-blur-sm rounded-xl p-6 border border-primary/20 hover:border-primary/40 transition-all transform hover:scale-105">
                     {% if project.image %}
-                        <img src="{{ url_for('static', filename='uploads/projects/' + project.image) }}" alt="{{ project.title }}" class="w-full h-48 object-cover rounded-lg mb-4">
+                        <img src="{{ url_for('static', filename='uploads/projects/' + project.image) }}" alt="{{ project.title }}" class="w-full h-48 object-cover rounded-lg mb-4" loading="lazy">
                     {% else %}
                         <div class="w-full h-48 bg-gradient-to-r from-primary/20 to-accent/20 rounded-lg mb-4 flex items-center justify-center">
                             <i class="fas fa-project-diagram text-4xl text-primary"></i>
@@ -225,7 +225,7 @@
             {% for publication in publications %}
                 <div class="bg-dark/50 backdrop-blur-sm rounded-xl p-6 border border-secondary/20 hover:border-secondary/40 transition-all transform hover:scale-105">
                     {% if publication.image %}
-                        <img src="{{ url_for('static', filename='uploads/publications/' + publication.image) }}" alt="{{ publication.title }}" class="w-full h-48 object-cover rounded-lg mb-4">
+                        <img src="{{ url_for('static', filename='uploads/publications/' + publication.image) }}" alt="{{ publication.title }}" class="w-full h-48 object-cover rounded-lg mb-4" loading="lazy">
                     {% else %}
                         <div class="w-full h-48 bg-gradient-to-r from-secondary/20 to-accent/20 rounded-lg mb-4 flex items-center justify-center text-primary text-4xl">
                             <i class="fas fa-book-open"></i>

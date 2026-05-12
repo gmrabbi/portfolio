@@ -4,8 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Golam Mostafa Rabby - Machine Learning & AI Engineer Portfolio">
-    <meta name="keywords" content="AI, Machine Learning, Computer Vision, IoT, Python, Deep Learning">
+    <meta name="keywords" content="AI, Machine Learning, Computer Vision, IoT, Python, Deep Learning, Golam Mostafa Rabby">
     <meta name="author" content="Golam Mostafa Rabby">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ request.url_root[:-1] }}{{ request.path }}">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="{% if title %}{{ title }} - {% endif %}Golam Mostafa Rabby">
+    <meta property="og:description" content="Machine Learning & AI Engineer specializing in Computer Vision, Deep Learning, and IoT Systems">
+    <meta property="og:image" content="{{ url_for('static', filename='images/profile.jpg', _external=True) }}">
+    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Golam Mostafa Rabby Portfolio">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% if title %}{{ title }} - {% endif %}Golam Mostafa Rabby">
+    <meta name="twitter:description" content="Machine Learning & AI Engineer specializing in Computer Vision, Deep Learning, and IoT Systems">
+    <meta name="twitter:image" content="{{ url_for('static', filename='images/profile.jpg', _external=True) }}">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Golam Mostafa Rabby",
+        "jobTitle": "Machine Learning & AI Engineer",
+        "description": "CSE undergraduate at DUET, Bangladesh with expertise in AI/ML technologies",
+        "url": "{{ request.url_root }}",
+        "image": "{{ url_for('static', filename='images/profile.jpg', _external=True) }}",
+        "sameAs": [
+            {% if user and user.github %}"{{ user.github }}"{% endif %}{% if user and user.linkedin %}, "{{ user.linkedin }}"{% endif %}{% if user and user.kaggle %}, "{{ user.kaggle }}"{% endif %}{% if user and user.scholar %}, "{{ user.scholar }}"{% endif %}
+        ],
+        "knowsAbout": ["Machine Learning", "Computer Vision", "Deep Learning", "IoT", "Python", "AI"],
+        "alumniOf": {
+            "@type": "EducationalOrganization",
+            "name": "Dhaka University of Engineering & Technology"
+        }
+    }
+    </script>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>

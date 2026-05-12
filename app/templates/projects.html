@@ -12,7 +12,7 @@
             {% for project in projects %}
                 <div class="bg-dark/50 backdrop-blur-sm rounded-xl overflow-hidden border border-primary/20 hover:border-primary/40 transition-all transform hover:scale-105 group">
                     {% if project.image %}
-                        <img src="{{ url_for('static', filename='uploads/projects/' + project.image) }}" alt="{{ project.title }}" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300">
+                        <img src="{{ url_for('static', filename='uploads/projects/' + project.image) }}" alt="{{ project.title }}" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300" loading="lazy">
                     {% else %}
                         <div class="w-full h-48 bg-gradient-to-r from-primary/20 to-accent/20 flex items-center justify-center">
                             <i class="fas fa-project-diagram text-4xl text-primary"></i>

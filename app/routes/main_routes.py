@@ -98,3 +98,38 @@ def download_resume():
         as_attachment=True,
         download_name=f"{user.name.replace(' ', '_')}_Resume.pdf"
     )
+
+@main.route('/sitemap.xml')
+def sitemap():
+    """Generate sitemap.xml"""
+    from flask import Response
+    from datetime import datetime
+
+    base_url = request.url_root.rstrip('/')
+    pages = [
+        {'loc': f'{base_url}/', 'lastmod': datetime.now().strftime('%Y-%m-%d'), 'changefreq': 'weekly', 'priority': '1.0'},
+        {'loc': f'{base_url}/about', 'lastmod': datetime.now().strftime('%Y-%m-%d'), 'changefreq': 'monthly', 'priority': '0.8'},
+        {'loc': f'{base_url}/projects', 'lastmod': datetime.now().strftime('%Y-%m-%d'), 'changefreq': 'weekly', 'priority': '0.9'},
+        {'loc': f'{base_url}/research', 'lastmod': datetime.now().strftime('%Y-%m-%d'), 'changefreq': 'weekly', 'priority': '0.8'},
+        {'loc': f'{base_url}/contact', 'lastmod': datetime.now().strftime('%Y-%m-%d'), 'changefreq': 'monthly', 'priority': '0.7'},
+    ]
+
+    sitemap_xml = '''<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+'''
+    for page in pages:
+        sitemap_xml += f'''  <url>
+    <loc>{page['loc']}</loc>
+    <lastmod>{page['lastmod']}</lastmod>
+    <changefreq>{page['changefreq']}</changefreq>
+    <priority>{page['priority']}</priority>
+  </url>
+'''
+    sitemap_xml += '</urlset>'
+
+    return Response(sitemap_xml, mimetype='application/xml')
+
+@main.route('/robots.txt')
+def robots():
+    """Serve robots.txt"""
+    return send_file('static/robots.txt')

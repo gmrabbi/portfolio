@@ -31,6 +31,7 @@
                                 src="{{ url_for('static', filename='images/profile.jpg') }}"
                                 alt="Golam Mostafa Rabby"
                                 class="w-full h-full object-cover transition duration-500 hover:scale-110"
+                                loading="lazy"
                             >
                         </div>
                     </div>
@@ -184,7 +185,7 @@
                         <!-- University Card -->
                         <div class="bg-dark/50 backdrop-blur-sm p-6 rounded-xl border border-primary/20 hover:border-primary/40 transition-all text-center">
                             <div class="flex justify-center mb-4">
-                                <img src="{{ url_for('static', filename='images/duet_logo.png') }}" alt="DUET Logo" class="h-16 object-contain filter brightness-110 hover:brightness-125 transition-all">
+                                <img src="{{ url_for('static', filename='images/duet_logo.png') }}" alt="DUET Logo" class="h-16 object-contain filter brightness-110 hover:brightness-125 transition-all" loading="lazy">
                             </div>
                             <h4 class="text-lg font-semibold text-white mb-2">University</h4>
                             <p class="text-primary font-medium mb-2">{{ user.university if user and user.university else 'Dhaka University of Engineering & Technology (DUET)' }}</p>

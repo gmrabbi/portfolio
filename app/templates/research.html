@@ -12,7 +12,7 @@
             {% for publication in publications %}
                 <div class="bg-dark/50 backdrop-blur-sm rounded-xl p-6 border border-secondary/20 hover:border-secondary/40 transition-all">
                     {% if publication.image %}
-                        <img src="{{ url_for('static', filename='uploads/publications/' + publication.image) }}" alt="{{ publication.title }}" class="w-full h-56 object-cover rounded-lg mb-6">
+                        <img src="{{ url_for('static', filename='uploads/publications/' + publication.image) }}" alt="{{ publication.title }}" class="w-full h-56 object-cover rounded-lg mb-6" loading="lazy">
                     {% endif %}
                     <div class="flex items-start justify-between mb-4 gap-6">
                         <div class="flex-1">
