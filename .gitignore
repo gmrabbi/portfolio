@@ -4,7 +4,7 @@ __pycache__/
 *.pyo
 *.pyd
 # *.db
-instance/
+# instance/
 .mypy_cache/
 .env
 .env.*.local
