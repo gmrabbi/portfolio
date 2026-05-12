@@ -10,7 +10,7 @@ login_manager = LoginManager()
 mail = Mail()
 
 def create_app(config_class=None):
-    app = Flask(__name__)
+    app = Flask(__name__, instance_relative_config=False)
 
     if config_class:
         app.config.from_object(config_class)

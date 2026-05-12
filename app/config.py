@@ -29,7 +29,11 @@ class DevelopmentConfig(Config):
     DEBUG = True
 
 class ProductionConfig(Config):
+    SECRET_KEY = os.environ.get('SECRET_KEY', 'default')
+    SQLALCHEMY_DATABASE_URI = os.environ.get(
+        'DATABASE_URL',
+        'sqlite:////tmp/app.db'
+    )
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
     DEBUG = False
     TESTING = False
-    # For production deployment, ensure SECRET_KEY is set in environment
-    # Default fallback is provided in base Config class
