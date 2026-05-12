@@ -16,16 +16,21 @@ main = Blueprint('main', __name__)
 @main.route('/')
 def index():
     """Home page with hero section"""
-    user = User.query.first()
-    skills = Skill.query.all()
-    projects = Project.query.filter_by(featured=True).order_by(Project.created_at.desc()).all()
-    publications = Publication.query.order_by(Publication.publication_date.desc()).limit(3).all()
-    
-    # Get stats
-    total_projects = Project.query.count()
-    total_publications = Publication.query.count()
-    total_leadership = LeadershipActivity.query.count()
-    years_experience = user.years_of_experience if user else 0
+    try:
+        user = User.query.first()
+        skills = Skill.query.all()
+        projects = Project.query.filter_by(featured=True).order_by(Project.created_at.desc()).all()
+        publications = Publication.query.order_by(Publication.publication_date.desc()).limit(3).all()
+        
+        # Get stats
+        total_projects = Project.query.count()
+        total_publications = Publication.query.count()
+        total_leadership = LeadershipActivity.query.count()
+        years_experience = user.years_of_experience if user else 0
+    except:
+        # DB not ready, return basic page
+        return render_template('index.html', user=None, skills=[], projects=[], publications=[], 
+                             total_projects=0, total_publications=0, total_leadership=0, years_experience=0)
     
     return render_template(
         'index.html',

@@ -23,6 +23,12 @@ def create_app(config_class=None):
     login_manager.init_app(app)
     mail.init_app(app)
 
+    # Create database tables
+    with app.app_context():
+        # Import all models to register them with SQLAlchemy
+        from app.models import user, skill, publication, project, leadership_activity, contact_message, certification
+        db.create_all()
+
     login_manager.login_view = 'auth.login'
     login_manager.login_message_category = 'info'
 
