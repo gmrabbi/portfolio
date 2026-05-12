@@ -1,0 +1,14 @@
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+instance/
+.mypy_cache/
+.env
+.env.*.local
+.DS_Store
+.vscode/
+render.yaml
+README.md
