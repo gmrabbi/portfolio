@@ -7,7 +7,6 @@ config_name = os.environ.get('FLASK_CONFIG', 'ProductionConfig')
 config_class = DevelopmentConfig if config_name == 'DevelopmentConfig' else ProductionConfig
 
 app = create_app(config_class)
-application = app
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
