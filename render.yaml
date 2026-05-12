@@ -12,3 +12,5 @@ services:
         value: ProductionConfig
       - key: PYTHONUNBUFFERED
         value: "true"
+      - key: DATABASE_URL
+        value: sqlite:////tmp/app.db

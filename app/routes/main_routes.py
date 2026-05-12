@@ -26,7 +26,7 @@ def index():
         total_projects = Project.query.count()
         total_publications = Publication.query.count()
         total_leadership = LeadershipActivity.query.count()
-        years_experience = user.years_of_experience if user else 0
+        years_experience = user.years_of_experience if user else 2
     except:
         # DB not ready, return basic page
         return render_template('index.html', user=None, skills=[], projects=[], publications=[], 

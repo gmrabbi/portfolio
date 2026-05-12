@@ -33,8 +33,10 @@ def create_app(config_class=None):
         from app.models.leadership_activity import LeadershipActivity
         from app.models.contact_message import ContactMessage
         from app.models.certification import Certification
+        from seed import seed_database
+
         db.create_all()
-        seed_database()
+        seed_database(app)
 
     login_manager.login_view = 'auth.login'
     login_manager.login_message_category = 'info'
