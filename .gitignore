@@ -9,5 +9,4 @@ instance/*.db
 .env.*.local
 .DS_Store
 .vscode/
-render.yaml
 README.md

@@ -1,9 +1,13 @@
-from app import create_app
-from app.config import ProductionConfig
+import os
 
-app = create_app(ProductionConfig)
+from app import create_app
+from app.config import DevelopmentConfig, ProductionConfig
+
+config_name = os.environ.get('FLASK_CONFIG', 'DevelopmentConfig')
+config_class = DevelopmentConfig if config_name != 'ProductionConfig' else ProductionConfig
+
+app = create_app(config_class)
 
 if __name__ == "__main__":
-    import os
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)

@@ -3,13 +3,16 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+basedir = os.path.abspath(os.path.dirname(__file__))
+instance_dir = os.path.abspath(os.path.join(basedir, '..', 'instance'))
+os.makedirs(instance_dir, exist_ok=True)
+
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or '5791628bb0b13ce0c676dfde280ba245'
-    
-    # Use /tmp for Render's writable filesystem
+
     SQLALCHEMY_DATABASE_URI = os.environ.get(
         'DATABASE_URL',
-        'sqlite:////tmp/site.db'
+        'sqlite:///' + os.path.join(instance_dir, 'site.db').replace('\\', '/')
     )
     
     SQLALCHEMY_TRACK_MODIFICATIONS = False
