@@ -28,6 +28,7 @@ def create_app(config_class=None):
         # Import all models to register them with SQLAlchemy
         from app.models import user, skill, publication, project, leadership_activity, contact_message, certification
         db.create_all()
+        seed_database()
 
     login_manager.login_view = 'auth.login'
     login_manager.login_message_category = 'info'
