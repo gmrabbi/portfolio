@@ -26,7 +26,13 @@ def create_app(config_class=None):
     # Create database tables
     with app.app_context():
         # Import all models to register them with SQLAlchemy
-        from app.models import user, skill, publication, project, leadership_activity, contact_message, certification
+        from app.models.user import User
+        from app.models.skill import Skill
+        from app.models.publication import Publication
+        from app.models.project import Project
+        from app.models.leadership_activity import LeadershipActivity
+        from app.models.contact_message import ContactMessage
+        from app.models.certification import Certification
         db.create_all()
         seed_database()
 
