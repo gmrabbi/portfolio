@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SubmitField
-from wtforms.validators import DataRequired, Email, Optional, URL
+from wtforms import IntegerField, StringField, TextAreaField, SubmitField
+from wtforms.validators import DataRequired, Email, NumberRange, Optional, URL
 
 
 class ProfileForm(FlaskForm):
@@ -9,6 +9,7 @@ class ProfileForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     phone = StringField('Phone', validators=[Optional()])
     location = StringField('Location', validators=[Optional()])
+    years_of_experience = IntegerField('Years of Experience', validators=[Optional(), NumberRange(min=0, max=100)])
     github = StringField('GitHub URL', validators=[Optional(), URL()])
     linkedin = StringField('LinkedIn URL', validators=[Optional(), URL()])
     kaggle = StringField('Kaggle URL', validators=[Optional(), URL()])

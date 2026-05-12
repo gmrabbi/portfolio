@@ -59,6 +59,14 @@
                     </div>
 
                     <div>
+                        {{ form.years_of_experience.label(class="block text-gray-300 mb-2") }}
+                        {{ form.years_of_experience(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                        {% if form.years_of_experience.errors %}
+                            <div class="text-red-400 text-sm mt-1">{% for error in form.years_of_experience.errors %}{{ error }}{% endfor %}</div>
+                        {% endif %}
+                    </div>
+
+                    <div>
                         {{ form.school.label(class="block text-gray-300 mb-2") }}
                         {{ form.school(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
                         {% if form.school.errors %}

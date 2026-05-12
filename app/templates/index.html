@@ -96,22 +96,22 @@
                 {% endif %}
 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="bg-dark/50 p-4 rounded-lg border border-primary/20 hover:border-primary/40 transition-all">
+                    <a href="{{ url_for('main.about') }}" class="block bg-dark/50 p-4 rounded-lg border border-primary/20 hover:border-primary/40 transition-all hover:-translate-y-1 transform">
                         <div class="text-2xl font-bold text-primary">{{ years_experience }}+</div>
                         <div class="text-gray-400">Years Experience</div>
-                    </div>
-                    <div class="bg-dark/50 p-4 rounded-lg border border-accent/20 hover:border-accent/40 transition-all">
+                    </a>
+                    <a href="{{ url_for('main.projects') }}" class="block bg-dark/50 p-4 rounded-lg border border-accent/20 hover:border-accent/40 transition-all hover:-translate-y-1 transform">
                         <div class="text-2xl font-bold text-accent">{{ total_projects }}</div>
                         <div class="text-gray-400">Projects Completed</div>
-                    </div>
-                    <div class="bg-dark/50 p-4 rounded-lg border border-secondary/20 hover:border-secondary/40 transition-all">
+                    </a>
+                    <a href="{{ url_for('main.research') }}" class="block bg-dark/50 p-4 rounded-lg border border-secondary/20 hover:border-secondary/40 transition-all hover:-translate-y-1 transform">
                         <div class="text-2xl font-bold text-secondary">{{ total_publications }}</div>
                         <div class="text-gray-400">Research Publications</div>
-                    </div>
-                    <div class="bg-dark/50 p-4 rounded-lg border border-accent/20 hover:border-accent/40 transition-all">
+                    </a>
+                    <a href="{{ url_for('main.about') }}" class="block bg-dark/50 p-4 rounded-lg border border-accent/20 hover:border-accent/40 transition-all hover:-translate-y-1 transform">
                         <div class="text-2xl font-bold text-accent">{{ total_leadership }}</div>
                         <div class="text-gray-400">Leadership Activities</div>
-                    </div>
+                    </a>
                 </div>
             </div>
 
