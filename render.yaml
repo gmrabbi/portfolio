@@ -4,7 +4,7 @@ services:
     env: python
     root: .
     plan: free
-    buildCommand: pip install -r requirements.txt
+    buildCommand: pip install -r requirements.txt && python -m flask --app index db upgrade
     startCommand: gunicorn index:app
     publishDirectory: ""
     envVars:
