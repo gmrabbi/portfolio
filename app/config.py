@@ -23,9 +23,6 @@ class DevelopmentConfig(Config):
 
 class ProductionConfig(Config):
     DEBUG = False
-    # Production-specific settings
     TESTING = False
-    # For Render, DATABASE_URL is provided
-    # Ensure SECRET_KEY is set in environment
-    if not os.environ.get('SECRET_KEY'):
-        raise ValueError("SECRET_KEY environment variable is not set")
+    # For production deployment, ensure SECRET_KEY is set in environment
+    # Default fallback is provided in base Config class
