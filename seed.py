@@ -5,10 +5,11 @@ from app.models.project import Project
 from app.models.publication import Publication
 from app.models.certification import Certification
 from app.models.leadership_activity import LeadershipActivity
+from app.config import ProductionConfig
 from datetime import date
 
 def seed_database():
-    app = create_app()
+    app = create_app(ProductionConfig)
 
     with app.app_context():
         # Create all tables
