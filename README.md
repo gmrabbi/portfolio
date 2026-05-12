@@ -100,45 +100,58 @@ portfolio/
 
 ## 🚀 Deployment
 
-### Render Deployment
+### Render Deployment (Recommended)
 
 1. **Connect your GitHub repository to Render**
 
-2. **Create a new Web Service** with the following settings:
+2. **Render will auto-detect the configuration** from `render.yaml`
+   - Build Command: `pip install -r requirements.txt && flask db upgrade`
+   - Start Command: `gunicorn app:application`
+
+3. **Or manually set up a Web Service**:
    - **Runtime**: Python 3
    - **Build Command**: `pip install -r requirements.txt && flask db upgrade`
-   - **Start Command**: `gunicorn run:application`
+   - **Start Command**: `gunicorn app:application`
    - **Environment Variables**:
      - `FLASK_CONFIG`: `ProductionConfig`
      - `SECRET_KEY`: Your secret key
      - `DATABASE_URL`: (provided by Render for PostgreSQL, or use SQLite)
      - `MAIL_SERVER`, `MAIL_USERNAME`, `MAIL_PASSWORD`: For contact form
 
-3. **Database**: Use Render's PostgreSQL or keep SQLite for simple deployment
+4. **Database**: Use Render's PostgreSQL (recommended) or keep SQLite
 
-4. **Static Files**: Served directly by Flask (consider CDN for production)
+5. **Static Files**: Served directly by Flask in production
 
 ### Vercel Deployment
 
 1. **Connect your GitHub repository to Vercel**
+   - Vercel auto-detects Python and uses `app.py` as entrypoint
+   - Configuration is in `vercel.json`
 
-2. **Configure build settings**:
-   - **Framework Preset**: Other
-   - **Root Directory**: (leave empty)
+2. **Vercel auto-configures from `vercel.json`**:
+   - Build System Presets: Flask/Python
+   - Entrypoint: `app.py`
+   - Environment Variables automatically detected
+
+3. **Or manually set up**:
+   - **Framework**: Other
    - **Build Command**: `pip install -r requirements.txt && flask db upgrade`
-   - **Output Directory**: (leave empty)
-   - **Install Command**: `pip install -r requirements.txt`
-   - **Start Command**: `gunicorn run:application`
+   - **Environment Variables**:
+     - `FLASK_CONFIG`: `ProductionConfig`
+     - `SECRET_KEY`: Your secret key
+     - `DATABASE_URL`: PostgreSQL or SQLite path
+     - `MAIL_SERVER`, `MAIL_USERNAME`, `MAIL_PASSWORD`: Email settings
 
-3. **Environment Variables**: Same as Render
+4. **Note**: Vercel has filesystem persistence limitations for databases. Use PostgreSQL or another cloud database.
 
 ### Environment Variables
 
-Create a `.env` file or set in deployment platform:
+Create a `.env` file locally or set in deployment platform:
 
 ```env
-SECRET_KEY=your-secret-key-here
-DATABASE_URL=sqlite:///portfolio.db  # or PostgreSQL URL
+SECRET_KEY=your-super-secret-key-change-this
+FLASK_CONFIG=ProductionConfig
+DATABASE_URL=postgresql://user:password@host/dbname
 MAIL_SERVER=smtp.gmail.com
 MAIL_PORT=587
 MAIL_USERNAME=your-email@gmail.com

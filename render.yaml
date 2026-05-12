@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: portfolio
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt && flask db upgrade
+    startCommand: gunicorn app:application
+    envVars:
+      - key: FLASK_CONFIG
+        value: ProductionConfig
+      - key: PYTHONUNBUFFERED
+        value: "true"
