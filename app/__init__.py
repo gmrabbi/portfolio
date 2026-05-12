@@ -3,7 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_mail import Mail
-import os
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -27,13 +26,7 @@ def create_app(config_class=None):
     login_manager.login_view = 'auth.login'
     login_manager.login_message_category = 'info'
 
-    # Ensure upload folder exists (gracefully handle read-only filesystem)
-    try:
-        os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-    except (OSError, PermissionError):
-        # On read-only filesystems like Render, silently continue
-        pass
-
+    # Register blueprints
     from app.routes.main_routes import main
     from app.routes.admin_routes import admin
     from app.routes.auth_routes import auth
