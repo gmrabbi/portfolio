@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="py-20 bg-dark">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-primary">{% if education_entry %}Edit{% else %}Add{% endif %} Education</h1>
+            <a href="{{ url_for('admin.education') }}" class="text-primary hover:text-accent transition-colors">
+                <i class="fas fa-arrow-left mr-2"></i>Back to Education
+            </a>
+        </div>
+
+        <div class="bg-dark/50 backdrop-blur-sm rounded-xl p-8 border border-primary/20">
+            <form method="POST" class="space-y-6">
+                {{ form.hidden_tag() }}
+
+                <div>
+                    {{ form.institution.label(class="block text-gray-300 mb-2") }}
+                    {{ form.institution(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                    {% if form.institution.errors %}
+                        <div class="text-red-400 text-sm mt-1">{% for error in form.institution.errors %}{{ error }}{% endfor %}</div>
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ form.degree.label(class="block text-gray-300 mb-2") }}
+                    {{ form.degree(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                    {% if form.degree.errors %}
+                        <div class="text-red-400 text-sm mt-1">{% for error in form.degree.errors %}{{ error }}{% endfor %}</div>
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ form.field_of_study.label(class="block text-gray-300 mb-2") }}
+                    {{ form.field_of_study(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors") }}
+                    {% if form.field_of_study.errors %}
+                        <div class="text-red-400 text-sm mt-1">{% for error in form.field_of_study.errors %}{{ error }}{% endfor %}</div>
+                    {% endif %}
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        {{ form.start_date.label(class="block text-gray-300 mb-2") }}
+                        {{ form.start_date(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors", type="date") }}
+                        {% if form.start_date.errors %}
+                            <div class="text-red-400 text-sm mt-1">{% for error in form.start_date.errors %}{{ error }}{% endfor %}</div>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        {{ form.end_date.label(class="block text-gray-300 mb-2") }}
+                        {{ form.end_date(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors", type="date") }}
+                        {% if form.end_date.errors %}
+                            <div class="text-red-400 text-sm mt-1">{% for error in form.end_date.errors %}{{ error }}{% endfor %}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="flex items-center">
+                    {{ form.current(class="mr-3") }}
+                    {{ form.current.label(class="text-gray-300") }}
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        {{ form.cgpa.label(class="block text-gray-300 mb-2") }}
+                        {{ form.cgpa(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors", type="number", step="0.01", min="0", max="5") }}
+                        {% if form.cgpa.errors %}
+                            <div class="text-red-400 text-sm mt-1">{% for error in form.cgpa.errors %}{{ error }}{% endfor %}</div>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        {{ form.cgpa_scale.label(class="block text-gray-300 mb-2") }}
+                        {{ form.cgpa_scale(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors", placeholder="e.g., 4.00") }}
+                        {% if form.cgpa_scale.errors %}
+                            <div class="text-red-400 text-sm mt-1">{% for error in form.cgpa_scale.errors %}{{ error }}{% endfor %}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div>
+                    {{ form.description.label(class="block text-gray-300 mb-2") }}
+                    {{ form.description(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors", rows="4") }}
+                    {% if form.description.errors %}
+                        <div class="text-red-400 text-sm mt-1">{% for error in form.description.errors %}{{ error }}{% endfor %}</div>
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ form.order.label(class="block text-gray-300 mb-2") }}
+                    {{ form.order(class="w-full bg-dark/50 border border-primary/30 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors", type="number", min="0") }}
+                    {% if form.order.errors %}
+                        <div class="text-red-400 text-sm mt-1">{% for error in form.order.errors %}{{ error }}{% endfor %}</div>
+                    {% endif %}
+                </div>
+
+                <div class="flex space-x-4">
+                    {{ form.submit(class="bg-primary text-dark font-semibold py-3 px-6 rounded-lg hover:bg-primary/80 transition-colors") }}
+                    <a href="{{ url_for('admin.education') }}" class="bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-gray-700 transition-colors">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

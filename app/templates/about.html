@@ -181,36 +181,70 @@
                 <!-- Education -->
                 <div>
                     <h3 class="text-xl font-semibold text-primary mb-8 text-center">Education</h3>
-                    <div class="grid md:grid-cols-3 gap-6">
-                        <!-- University Card -->
-                        <div class="bg-dark/50 backdrop-blur-sm p-6 rounded-xl border border-primary/20 hover:border-primary/40 transition-all text-center">
-                            <div class="flex justify-center mb-4">
-                                <img src="{{ url_for('static', filename='images/duet_logo.png') }}" alt="DUET Logo" class="h-16 object-contain filter brightness-110 hover:brightness-125 transition-all" loading="lazy">
+                    {% if education_entries %}
+                        <div class="grid md:grid-cols-1 lg:grid-cols-2 gap-6">
+                            {% for entry in education_entries %}
+                            <div class="bg-dark/50 backdrop-blur-sm p-6 rounded-xl border border-primary/20 hover:border-primary/40 transition-all">
+                                <div class="flex items-start justify-between mb-4">
+                                    <div class="flex items-center gap-3">
+                                        <i class="fas fa-graduation-cap text-primary text-2xl"></i>
+                                        <div>
+                                            <h4 class="text-lg font-semibold text-white">{{ entry.degree }}</h4>
+                                            <p class="text-primary font-medium">{{ entry.institution }}</p>
+                                        </div>
+                                    </div>
+                                    {% if entry.start_date %}
+                                    <div class="text-right text-sm text-gray-400">
+                                        {% if entry.end_date %}
+                                            {{ entry.start_date.strftime('%b %Y') }} - {{ entry.end_date.strftime('%b %Y') }}
+                                        {% elif entry.current %}
+                                            {{ entry.start_date.strftime('%b %Y') }} - Present
+                                        {% endif %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <p class="text-gray-300 text-sm mb-2">{{ entry.field_of_study }}</p>
+                                {% if entry.cgpa %}
+                                    <p class="text-gray-400 text-sm">CGPA: {{ entry.cgpa }} / {{ entry.cgpa_scale or '4.00' }}</p>
+                                {% endif %}
+                                {% if entry.description %}
+                                    <p class="text-gray-300 text-sm mt-2">{{ entry.description }}</p>
+                                {% endif %}
                             </div>
-                            <h4 class="text-lg font-semibold text-white mb-2">University</h4>
-                            <p class="text-primary font-medium mb-2">{{ user.university if user and user.university else 'Dhaka University of Engineering & Technology (DUET)' }}</p>
-                            <p class="text-gray-400 text-sm mb-3">Bachelor of Science in Computer Science & Engineering</p>
-                            <p class="text-gray-300 text-sm">Expected Graduation: 2025</p>
+                            {% endfor %}
                         </div>
-                        <!-- College Card -->
-                        <div class="bg-dark/50 backdrop-blur-sm p-6 rounded-xl border border-secondary/20 hover:border-secondary/40 transition-all text-center">
-                            <div class="flex justify-center mb-4">
-                                <i class="fas fa-building text-secondary text-4xl"></i>
+                    {% else %}
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <!-- University Card -->
+                            <div class="bg-dark/50 backdrop-blur-sm p-6 rounded-xl border border-primary/20 hover:border-primary/40 transition-all text-center">
+                                <div class="flex justify-center mb-4">
+                                    <img src="{{ url_for('static', filename='images/duet_logo.png') }}" alt="DUET Logo" class="h-16 object-contain filter brightness-110 hover:brightness-125 transition-all" loading="lazy">
+                                </div>
+                                <h4 class="text-lg font-semibold text-white mb-2">University</h4>
+                                <p class="text-primary font-medium mb-2">{{ user.university if user and user.university else 'Dhaka University of Engineering & Technology (DUET)' }}</p>
+                                <p class="text-gray-400 text-sm mb-3">Bachelor of Science in Computer Science & Engineering</p>
+                                <p class="text-gray-300 text-sm">Expected Graduation: 2025</p>
                             </div>
-                            <h4 class="text-lg font-semibold text-white mb-2">College</h4>
-                            <p class="text-secondary font-medium mb-2">{{ user.college if user and user.college else 'Your College Name' }}</p>
-                            <p class="text-gray-300 text-sm">Include your college degree or diploma here to show your academic foundation.</p>
-                        </div>
-                        <!-- High School Card -->
-                        <div class="bg-dark/50 backdrop-blur-sm p-6 rounded-xl border border-accent/20 hover:border-accent/40 transition-all text-center">
-                            <div class="flex justify-center mb-4">
-                                <i class="fas fa-graduation-cap text-accent text-4xl"></i>
+                            <!-- College Card -->
+                            <div class="bg-dark/50 backdrop-blur-sm p-6 rounded-xl border border-secondary/20 hover:border-secondary/40 transition-all text-center">
+                                <div class="flex justify-center mb-4">
+                                    <i class="fas fa-building text-secondary text-4xl"></i>
+                                </div>
+                                <h4 class="text-lg font-semibold text-white mb-2">College</h4>
+                                <p class="text-secondary font-medium mb-2">{{ user.college if user and user.college else 'Your College Name' }}</p>
+                                <p class="text-gray-300 text-sm">Include your college degree or diploma here to show your academic foundation.</p>
                             </div>
-                            <h4 class="text-lg font-semibold text-white mb-2">High School</h4>
-                            <p class="text-accent font-medium mb-2">{{ user.school if user and user.school else 'Your High School Name' }}</p>
-                            <p class="text-gray-300 text-sm">Demonstrates the earlier foundation that built your technical journey.</p>
+                            <!-- High School Card -->
+                            <div class="bg-dark/50 backdrop-blur-sm p-6 rounded-xl border border-accent/20 hover:border-accent/40 transition-all text-center">
+                                <div class="flex justify-center mb-4">
+                                    <i class="fas fa-graduation-cap text-accent text-4xl"></i>
+                                </div>
+                                <h4 class="text-lg font-semibold text-white mb-2">High School</h4>
+                                <p class="text-accent font-medium mb-2">{{ user.school if user and user.school else 'Your High School Name' }}</p>
+                                <p class="text-gray-300 text-sm">Demonstrates the earlier foundation that built your technical journey.</p>
+                            </div>
                         </div>
-                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

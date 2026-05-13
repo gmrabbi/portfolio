@@ -3,7 +3,7 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
-instance/*.db
+# instance/*.db  # Uncomment this line to push database file to GitHub
 .mypy_cache/
 .env
 .env.*.local

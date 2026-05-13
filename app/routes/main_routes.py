@@ -52,7 +52,8 @@ def about():
     """About page"""
     user = User.query.first()
     leadership_activities = LeadershipActivity.query.order_by(LeadershipActivity.start_date.desc()).all()
-    return render_template('about.html', user=user, leadership_activities=leadership_activities, title='About')
+    education_entries = Education.query.order_by(Education.order).all()
+    return render_template('about.html', user=user, leadership_activities=leadership_activities, education_entries=education_entries, title='About')
 
 @main.route('/projects')
 def projects():

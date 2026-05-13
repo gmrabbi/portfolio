@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="py-20 bg-dark">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-3xl font-bold text-primary mb-2">Manage Certifications</h1>
+                <p class="text-gray-400">Showcase your professional certifications</p>
+            </div>
+            <div class="flex space-x-4">
+                <a href="{{ url_for('admin.new_certification') }}" class="bg-primary text-dark px-6 py-2 rounded-lg font-semibold hover:bg-primary/80 transition-colors">
+                    <i class="fas fa-plus mr-2"></i>Add Certification
+                </a>
+                <a href="{{ url_for('admin.dashboard') }}" class="text-primary hover:text-accent transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i>Back
+                </a>
+            </div>
+        </div>
+
+        {% if certifications %}
+            <div class="grid gap-6">
+                {% for certification in certifications %}
+                    <div class="bg-dark/50 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                        <div class="flex justify-between items-start">
+                            <div class="flex-1">
+                                <h4 class="text-xl font-semibold text-white mb-2">{{ certification.title }}</h4>
+                                <p class="text-primary font-medium mb-2">{{ certification.issuer }}</p>
+                                {% if certification.issue_date %}
+                                    <p class="text-gray-400 text-sm mb-2">
+                                        Issued: {{ certification.issue_date.strftime('%B %Y') }}
+                                        {% if certification.expiry_date %}
+                                            | Expires: {{ certification.expiry_date.strftime('%B %Y') }}
+                                        {% endif %}
+                                    </p>
+                                {% endif %}
+                                {% if certification.credential_id %}
+                                    <p class="text-gray-400 text-sm mb-2">Credential ID: {{ certification.credential_id }}</p>
+                                {% endif %}
+                                {% if certification.description %}
+                                    <p class="text-gray-300 text-sm">{{ certification.description }}</p>
+                                {% endif %}
+                                {% if certification.credential_url %}
+                                    <a href="{{ certification.credential_url }}" target="_blank" class="text-accent hover:text-primary transition-colors text-sm">
+                                        <i class="fas fa-external-link-alt mr-1"></i>View Credential
+                                    </a>
+                                {% endif %}
+                            </div>
+                            <div class="flex space-x-2 ml-4">
+                                <a href="{{ url_for('admin.edit_certification', id=certification.id) }}" class="text-primary hover:text-accent transition-colors">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <form method="POST" action="{{ url_for('admin.delete_certification', id=certification.id) }}" class="inline" onsubmit="return confirm('Delete this certification?');">
+                                    <button type="submit" class="text-red-500 hover:text-red-400 transition-colors">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="text-center py-12">
+                <i class="fas fa-certificate text-6xl text-gray-600 mb-4"></i>
+                <h3 class="text-xl font-semibold text-gray-400 mb-2">No Certifications Yet</h3>
+                <p class="text-gray-500 mb-6">Add your professional certifications to showcase your expertise.</p>
+                <a href="{{ url_for('admin.new_certification') }}" class="bg-primary text-dark px-6 py-2 rounded-lg font-semibold hover:bg-primary/80 transition-colors">
+                    Add Certification
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

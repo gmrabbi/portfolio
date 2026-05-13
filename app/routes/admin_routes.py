@@ -7,6 +7,7 @@ from app.models.skill import Skill
 from app.models.publication import Publication
 from app.models.certification import Certification
 from app.models.leadership_activity import LeadershipActivity
+from app.models.education import Education
 from app.models.contact_message import ContactMessage
 from app.forms.profile_form import ProfileForm
 from app.forms.project_form import ProjectForm
@@ -14,6 +15,7 @@ from app.forms.skill_form import SkillForm
 from app.forms.publication_form import PublicationForm
 from app.forms.certification_form import CertificationForm
 from app.forms.leadership_form import LeadershipForm
+from app.forms.education_form import EducationForm
 from app.utils.image_handler import save_image
 import os
 
@@ -282,6 +284,177 @@ def delete_publication(id):
     db.session.commit()
     flash('Publication deleted successfully!', 'success')
     return redirect(url_for('admin.publications'))
+
+# Certifications Management
+@admin.route('/certifications')
+@login_required
+def certifications():
+    """List all certifications"""
+    certifications = Certification.query.all()
+    return render_template('admin/certifications.html', certifications=certifications, title='Manage Certifications')
+
+@admin.route('/certifications/new', methods=['GET', 'POST'])
+@login_required
+def new_certification():
+    """Create new certification"""
+    form = CertificationForm()
+
+    if form.validate_on_submit():
+        certification = Certification(
+            title=form.title.data,
+            issuer=form.issuer.data,
+            issue_date=form.issue_date.data,
+            expiry_date=form.expiry_date.data,
+            credential_id=form.credential_id.data,
+            credential_url=form.credential_url.data,
+            description=form.description.data
+        )
+        db.session.add(certification)
+        db.session.commit()
+        flash('Certification added successfully!', 'success')
+        return redirect(url_for('admin.certifications'))
+
+    return render_template('admin/certification_form.html', form=form, title='New Certification')
+
+@admin.route('/certifications/<int:id>/edit', methods=['GET', 'POST'])
+@login_required
+def edit_certification(id):
+    """Edit certification"""
+    certification = Certification.query.get_or_404(id)
+    form = CertificationForm(obj=certification)
+
+    if form.validate_on_submit():
+        form.populate_obj(certification)
+        db.session.commit()
+        flash('Certification updated successfully!', 'success')
+        return redirect(url_for('admin.certifications'))
+
+    return render_template('admin/certification_form.html', form=form, certification=certification, title='Edit Certification')
+
+@admin.route('/certifications/<int:id>/delete', methods=['POST'])
+@login_required
+def delete_certification(id):
+    """Delete certification"""
+    certification = Certification.query.get_or_404(id)
+    db.session.delete(certification)
+    db.session.commit()
+    flash('Certification deleted successfully!', 'success')
+    return redirect(url_for('admin.certifications'))
+
+# Leadership Activities Management
+@admin.route('/leadership')
+@login_required
+def leadership():
+    """List all leadership activities"""
+    activities = LeadershipActivity.query.all()
+    return render_template('admin/leadership.html', activities=activities, title='Manage Leadership Activities')
+
+@admin.route('/leadership/new', methods=['GET', 'POST'])
+@login_required
+def new_leadership():
+    """Create new leadership activity"""
+    form = LeadershipForm()
+
+    if form.validate_on_submit():
+        activity = LeadershipActivity(
+            position=form.position.data,
+            organization=form.organization.data,
+            start_date=form.start_date.data,
+            end_date=form.end_date.data,
+            description=form.description.data,
+            achievements=form.achievements.data,
+            current=form.current.data
+        )
+        db.session.add(activity)
+        db.session.commit()
+        flash('Leadership activity added successfully!', 'success')
+        return redirect(url_for('admin.leadership'))
+
+    return render_template('admin/leadership_form.html', form=form, title='New Leadership Activity')
+
+@admin.route('/leadership/<int:id>/edit', methods=['GET', 'POST'])
+@login_required
+def edit_leadership(id):
+    """Edit leadership activity"""
+    activity = LeadershipActivity.query.get_or_404(id)
+    form = LeadershipForm(obj=activity)
+
+    if form.validate_on_submit():
+        form.populate_obj(activity)
+        db.session.commit()
+        flash('Leadership activity updated successfully!', 'success')
+        return redirect(url_for('admin.leadership'))
+
+    return render_template('admin/leadership_form.html', form=form, activity=activity, title='Edit Leadership Activity')
+
+@admin.route('/leadership/<int:id>/delete', methods=['POST'])
+@login_required
+def delete_leadership(id):
+    """Delete leadership activity"""
+    activity = LeadershipActivity.query.get_or_404(id)
+    db.session.delete(activity)
+    db.session.commit()
+    flash('Leadership activity deleted successfully!', 'success')
+    return redirect(url_for('admin.leadership'))
+
+# Education Management
+@admin.route('/education')
+@login_required
+def education():
+    """List all education entries"""
+    education_entries = Education.query.order_by(Education.order).all()
+    return render_template('admin/education.html', education_entries=education_entries, title='Manage Education')
+
+@admin.route('/education/new', methods=['GET', 'POST'])
+@login_required
+def new_education():
+    """Create new education entry"""
+    form = EducationForm()
+
+    if form.validate_on_submit():
+        education_entry = Education(
+            institution=form.institution.data,
+            degree=form.degree.data,
+            field_of_study=form.field_of_study.data,
+            start_date=form.start_date.data,
+            end_date=form.end_date.data,
+            cgpa=form.cgpa.data,
+            cgpa_scale=form.cgpa_scale.data,
+            description=form.description.data,
+            current=form.current.data,
+            order=form.order.data
+        )
+        db.session.add(education_entry)
+        db.session.commit()
+        flash('Education entry added successfully!', 'success')
+        return redirect(url_for('admin.education'))
+
+    return render_template('admin/education_form.html', form=form, title='New Education Entry')
+
+@admin.route('/education/<int:id>/edit', methods=['GET', 'POST'])
+@login_required
+def edit_education(id):
+    """Edit education entry"""
+    education_entry = Education.query.get_or_404(id)
+    form = EducationForm(obj=education_entry)
+
+    if form.validate_on_submit():
+        form.populate_obj(education_entry)
+        db.session.commit()
+        flash('Education entry updated successfully!', 'success')
+        return redirect(url_for('admin.education'))
+
+    return render_template('admin/education_form.html', form=form, education_entry=education_entry, title='Edit Education Entry')
+
+@admin.route('/education/<int:id>/delete', methods=['POST'])
+@login_required
+def delete_education(id):
+    """Delete education entry"""
+    education_entry = Education.query.get_or_404(id)
+    db.session.delete(education_entry)
+    db.session.commit()
+    flash('Education entry deleted successfully!', 'success')
+    return redirect(url_for('admin.education'))
 
 # Messages Management
 @admin.route('/messages')
