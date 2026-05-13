@@ -13,4 +13,4 @@ services:
       - key: PYTHONUNBUFFERED
         value: "true"
       - key: DATABASE_URL
-        value: postgresql://portfolios_db_user:fo914A2nEFucRJH6PVNb0mISCtWmmGpH@dpg-d826vm3bc2fs73c3isn0-a.oregon-postgres.render.com/portfolios_db
+        value: postgresql+psycopg://portfolios_db_user:fo914A2nEFucRJH6PVNb0mISCtWmmGpH@dpg-d826vm3bc2fs73c3isn0-a.oregon-postgres.render.com/portfolios_db
