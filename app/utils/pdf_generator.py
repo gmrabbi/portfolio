@@ -6,7 +6,7 @@ from reportlab.lib.colors import HexColor
 from io import BytesIO
 from datetime import datetime
 
-def generate_resume_pdf(user, skills, projects, publications, certifications, activities):
+def generate_resume_pdf(user, skills, projects, publications, certifications, activities, education=None, training=None):
     """Generate professional resume PDF"""
     buffer = BytesIO()
     doc = SimpleDocTemplate(buffer, pagesize=letter)
@@ -138,11 +138,32 @@ def generate_resume_pdf(user, skills, projects, publications, certifications, ac
                 story.append(Paragraph(activity.description, normal_style))
             story.append(Spacer(1, 0.1*inch))
 
-    # Education (placeholder - can be made dynamic later)
-    story.append(Paragraph("EDUCATION", section_style))
-    story.append(Paragraph("<b>Bachelor of Science in Computer Science & Engineering</b>", styles['Heading4']))
-    story.append(Paragraph("Dhaka University of Engineering & Technology (DUET)", normal_style))
-    story.append(Paragraph("Expected Graduation: 2025", normal_style))
+    # Education Section
+    if education:
+        story.append(Paragraph("EDUCATION", section_style))
+        for edu in sorted(education, key=lambda x: x.order if x.order else 0):
+            story.append(Paragraph(f"<b>{edu.degree}</b>", styles['Heading4']))
+            story.append(Paragraph(f"<i>{edu.institution}</i>", normal_style))
+            if edu.start_date and edu.end_date:
+                date_str = f"{edu.start_date.strftime('%Y')} - {edu.end_date.strftime('%Y')}"
+            else:
+                date_str = "Date not specified"
+            story.append(Paragraph(date_str, normal_style))
+            if edu.cgpa:
+                story.append(Paragraph(f"CGPA: {edu.cgpa}/{edu.cgpa_scale}", normal_style))
+            story.append(Spacer(1, 0.1*inch))
+
+    # Training Section
+    if training:
+        story.append(Paragraph("TRAINING", section_style))
+        for train in sorted(training, key=lambda x: x.order if x.order else 0):
+            story.append(Paragraph(f"<b>{train.title}</b>", styles['Heading4']))
+            story.append(Paragraph(f"<i>{train.provider}</i>", normal_style))
+            if train.date:
+                story.append(Paragraph(f"Date: {train.date.strftime('%B %Y')}", normal_style))
+            if train.description:
+                story.append(Paragraph(train.description, normal_style))
+            story.append(Spacer(1, 0.1*inch))
 
     doc.build(story)
     buffer.seek(0)

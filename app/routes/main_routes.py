@@ -6,6 +6,8 @@ from app.models.skill import Skill
 from app.models.publication import Publication
 from app.models.certification import Certification
 from app.models.leadership_activity import LeadershipActivity
+from app.models.education import Education
+from app.models.training import Training
 from app.models.contact_message import ContactMessage
 from app.forms.contact_form import ContactForm
 from app.utils.pdf_generator import generate_resume_pdf
@@ -96,9 +98,11 @@ def download_resume():
     publications = Publication.query.all()
     certifications = Certification.query.all()
     activities = LeadershipActivity.query.all()
+    education = Education.query.all()
+    training = Training.query.all()
 
     # Generate PDF
-    pdf_buffer = generate_resume_pdf(user, skills, projects, publications, certifications, activities)
+    pdf_buffer = generate_resume_pdf(user, skills, projects, publications, certifications, activities, education, training)
 
     return send_file(
         io.BytesIO(pdf_buffer),

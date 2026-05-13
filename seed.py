@@ -1,10 +1,10 @@
-from app.config import ProductionConfig
+from app.config import DevelopmentConfig
 from datetime import date
 
-def seed_database(app=None):
+def seed_database(app=None, force=False):
     if app is None:
         from app import create_app, db
-        app = create_app(ProductionConfig)
+        app = create_app(DevelopmentConfig)
     else:
         from app import db
 
@@ -14,15 +14,31 @@ def seed_database(app=None):
     from app.models.publication import Publication
     from app.models.certification import Certification
     from app.models.leadership_activity import LeadershipActivity
+    from app.models.education import Education
+    from app.models.training import Training
 
     with app.app_context():
         # Create all tables
         db.create_all()
 
         # Check if data already exists
-        if User.query.first():
-            print("Database already seeded!")
+        if User.query.first() and not force:
+            print("Database already seeded! Use --force to reseed.")
             return
+
+        # Clear existing data if force flag is set
+        if force:
+            print("Clearing existing data...")
+            User.query.delete()
+            Skill.query.delete()
+            Project.query.delete()
+            Publication.query.delete()
+            Certification.query.delete()
+            LeadershipActivity.query.delete()
+            Education.query.delete()
+            Training.query.delete()
+            db.session.commit()
+            print("Data cleared.")
 
         # Create admin user
         admin = User(
@@ -283,9 +299,66 @@ def seed_database(app=None):
             activity = LeadershipActivity(**activity_data)
             db.session.add(activity)
 
+        # Create education
+        education_data = [
+            {
+                'institution': 'Dhaka University of Engineering & Technology (DUET), Gazipur',
+                'degree': 'B.Sc. in Computer Science and Engineering',
+                'field_of_study': 'Computer Science and Engineering',
+                'start_date': date(2022, 9, 1),
+                'end_date': date(2026, 6, 30),
+                'cgpa': 3.78,
+                'cgpa_scale': '4.00',
+                'current': True,
+                'order': 1
+            },
+            {
+                'institution': 'Graphic Arts Institute, Dhaka',
+                'degree': 'Diploma in Computer Technology',
+                'field_of_study': 'Computer Technology',
+                'start_date': date(2020, 1, 1),
+                'end_date': date(2022, 6, 30),
+                'cgpa': 3.89,
+                'cgpa_scale': '4.00',
+                'current': False,
+                'order': 2
+            },
+            {
+                'institution': 'Mohishbathan High School, Naogaon',
+                'degree': 'SSC (Science)',
+                'field_of_study': 'Science',
+                'start_date': date(2015, 1, 1),
+                'end_date': date(2017, 6, 30),
+                'cgpa': 4.82,
+                'cgpa_scale': '5.00',
+                'current': False,
+                'order': 3
+            },
+        ]
+
+        for edu_data in education_data:
+            education = Education(**edu_data)
+            db.session.add(education)
+
+        # Create training & courses
+        training_data = [
+            {
+                'title': 'Certificate in Python (Data Analysis)',
+                'provider': 'EDGE Project, Bangladesh Computer Council (ICT Division)',
+                'date': date(2022, 6, 1),
+                'order': 1
+            },
+        ]
+
+        for train_data in training_data:
+            training = Training(**train_data)
+            db.session.add(training)
+
         # Commit all changes
         db.session.commit()
         print("Database seeded successfully!")
 
 if __name__ == '__main__':
-    seed_database()
+    import sys
+    force = '--force' in sys.argv or '-f' in sys.argv
+    seed_database(force=force)
