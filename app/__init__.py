@@ -38,6 +38,12 @@ def create_app(config_class=None):
 
         db.create_all()
 
+        # Auto-seed database if empty (for deployments like Render with temp databases)
+        if not User.query.first():
+            from seed import seed_database
+            print("Database is empty. Auto-seeding with initial data...")
+            seed_database(app, force=False)
+
     login_manager.login_view = 'auth.login'
     login_manager.login_message_category = 'info'
 
