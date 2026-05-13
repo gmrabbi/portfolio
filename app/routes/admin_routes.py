@@ -44,9 +44,29 @@ def profile():
     """Edit profile"""
     user = User.query.first()
     form = ProfileForm(obj=user)
+    form._user_id = user.id  # Store user ID for validation
 
     if form.validate_on_submit():
-        form.populate_obj(user)
+        user.username = form.username.data
+        user.email = form.email.data
+        user.name = form.name.data
+        user.title = form.title.data
+        user.phone = form.phone.data
+        user.location = form.location.data
+        user.years_of_experience = form.years_of_experience.data
+        user.github = form.github.data
+        user.linkedin = form.linkedin.data
+        user.kaggle = form.kaggle.data
+        user.scholar = form.scholar.data
+        user.school = form.school.data
+        user.college = form.college.data
+        user.university = form.university.data
+        user.about = form.about.data
+        
+        # Update password if provided
+        if form.password.data:
+            user.set_password(form.password.data)
+        
         db.session.commit()
         flash('Profile updated successfully!', 'success')
         return redirect(url_for('admin.profile'))

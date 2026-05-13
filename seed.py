@@ -27,59 +27,89 @@ def seed_database(app=None):
         # Create admin user
         admin = User(
             username='admin',
-            email='golam.mostafa.rabby@example.com',
+            email='gmrabbi91221@gmail.com',
             name='Golam Mostafa Rabby',
-            title='Machine Learning & AI Engineer',
-            phone='+880 1234-567890',
-            location='Dhaka, Bangladesh',
-            github='https://github.com/golammostrabby',
-            linkedin='https://linkedin.com/in/golammostrabby',
-            kaggle='https://kaggle.com/golammostrabby',
-            scholar='https://scholar.google.com/citations?user=golammostrabby',
-            about='''Passionate Machine Learning and AI Engineer with expertise in Computer Vision, Deep Learning, and IoT systems.
-            Currently pursuing Computer Science & Engineering at Dhaka University of Engineering & Technology (DUET).
-            Experienced in developing intelligent systems and conducting research in artificial intelligence.'''
+            title='Machine Learning & AI Engineer (Fresher)',
+            phone='+880 1753 547782',
+            location='Naogaon, Rajshahi, Bangladesh',
+            github='https://github.com/gmrabbi',
+            linkedin='https://www.linkedin.com/in/golammostafarabby/',
+            kaggle='https://www.kaggle.com/golammostafarabby',
+            scholar='https://scholar.google.com/citations?user=zvpv-lwAAAAJ',
+            school='Mohishbathan High School, Naogaon',
+            college='Graphic Arts Institute, Dhaka',
+            university='Dhaka University of Engineering & Technology (DUET), Gazipur',
+            years_of_experience=0,
+            about='''Computer Science and Engineering undergraduate specializing in Machine Learning, Artificial Intelligence, and IoT automation. Experienced in developing real-world ML-powered applications, including a mobile app for plant disease detection with solution recommendation. Skilled in Python, CNN/ANN modeling, data preprocessing, and deployment-oriented development. Versatile in WordPress web development, creative design, and project management for academic and club events. Passionate about applying innovative technologies to solve practical problems and contribute effectively in dynamic engineering and IT teams.'''
         )
         admin.set_password('admin123')  # Change this in production!
         db.session.add(admin)
 
         # Create skills
         skills_data = [
-            # Machine Learning
-            ('Machine Learning', 'Python', 90),
-            ('Machine Learning', 'Scikit-learn', 85),
-            ('Machine Learning', 'TensorFlow', 80),
-            ('Machine Learning', 'PyTorch', 75),
-
-            # Deep Learning
-            ('Deep Learning', 'Neural Networks', 85),
-            ('Deep Learning', 'CNN', 80),
-            ('Deep Learning', 'RNN', 75),
-            ('Deep Learning', 'Transformers', 70),
-
-            # Computer Vision
-            ('Computer Vision', 'OpenCV', 85),
-            ('Computer Vision', 'Image Processing', 80),
-            ('Computer Vision', 'Object Detection', 75),
-
-            # IoT
-            ('IoT', 'Arduino', 80),
-            ('IoT', 'Raspberry Pi', 75),
-            ('IoT', 'Sensor Networks', 70),
-
-            # Web Development
-            ('Web Development', 'Flask', 85),
-            ('Web Development', 'HTML/CSS', 80),
-            ('Web Development', 'JavaScript', 70),
-
-            # Research
-            ('Research', 'Academic Writing', 85),
-            ('Research', 'IEEE Publications', 80),
-
-            # Tools
-            ('Tools', 'Git', 90),
-            ('Tools', 'Docker', 75),
-            ('Tools', 'Jupyter', 85),
+            # Programming
+            ('Programming', 'Python', 95),
+            ('Programming', 'C/C++', 80),
+            ('Programming', 'PHP', 75),
+            ('Programming', 'SQL', 85),
+            
+            # Machine Learning & AI
+            ('Machine Learning & AI', 'Supervised Learning', 90),
+            ('Machine Learning & AI', 'Unsupervised Learning', 85),
+            ('Machine Learning & AI', 'Neural Networks (ANN)', 90),
+            ('Machine Learning & AI', 'CNN', 90),
+            ('Machine Learning & AI', 'RNN', 85),
+            ('Machine Learning & AI', 'Computer Vision', 85),
+            ('Machine Learning & AI', 'Image Classification', 90),
+            ('Machine Learning & AI', 'Feature Engineering', 85),
+            ('Machine Learning & AI', 'Transfer Learning', 80),
+            ('Machine Learning & AI', 'Few-Shot Learning', 85),
+            
+            # Libraries & Frameworks
+            ('Libraries & Frameworks', 'TensorFlow', 90),
+            ('Libraries & Frameworks', 'Keras', 90),
+            ('Libraries & Frameworks', 'Scikit-learn', 85),
+            ('Libraries & Frameworks', 'Pandas', 90),
+            ('Libraries & Frameworks', 'NumPy', 90),
+            ('Libraries & Frameworks', 'Matplotlib', 85),
+            ('Libraries & Frameworks', 'Plotly', 80),
+            ('Libraries & Frameworks', 'Django', 85),
+            ('Libraries & Frameworks', 'Flask', 85),
+            ('Libraries & Frameworks', 'Tkinter', 75),
+            ('Libraries & Frameworks', 'Android Studio', 75),
+            
+            # Data Science
+            ('Data Science', 'Data Cleaning & Preprocessing', 90),
+            ('Data Science', 'Exploratory Data Analysis', 85),
+            ('Data Science', 'Data Visualization', 85),
+            
+            # IoT & Embedded Systems
+            ('IoT & Embedded Systems', 'Arduino', 85),
+            ('IoT & Embedded Systems', 'ESP32', 85),
+            ('IoT & Embedded Systems', 'ESP8266', 85),
+            ('IoT & Embedded Systems', 'Sensors', 80),
+            ('IoT & Embedded Systems', 'Motors & Relay Control', 80),
+            ('IoT & Embedded Systems', 'Bluetooth', 85),
+            ('IoT & Embedded Systems', 'WiFi Communication', 85),
+            
+            # Web & Design
+            ('Web & Design', 'WordPress', 85),
+            ('Web & Design', 'HTML', 90),
+            ('Web & Design', 'CSS', 90),
+            ('Web & Design', 'JavaScript', 80),
+            ('Web & Design', 'Banner & Poster Design', 80),
+            ('Web & Design', 'Social Media Design', 80),
+            
+            # Tools & Systems
+            ('Tools & Systems', 'Git', 90),
+            ('Tools & Systems', 'GitHub', 90),
+            ('Tools & Systems', 'Jupyter Notebook', 90),
+            ('Tools & Systems', 'Google Colab', 90),
+            ('Tools & Systems', 'LaTeX', 85),
+            ('Tools & Systems', 'Windows', 90),
+            ('Tools & Systems', 'Linux', 85),
+            ('Tools & Systems', 'SSH', 80),
+            ('Tools & Systems', 'Telnet', 75),
         ]
 
         for category, name, proficiency in skills_data:
@@ -89,33 +119,43 @@ def seed_database(app=None):
         # Create projects
         projects_data = [
             {
-                'title': 'GPS-Based Autonomous Tractor Navigation',
-                'description': 'Developed an autonomous navigation system for agricultural tractors using GPS, computer vision, and machine learning algorithms. The system enables precision farming with automated path planning and obstacle avoidance.',
-                'technologies': 'Python, OpenCV, GPS, Machine Learning, IoT',
-                'github_link': 'https://github.com/golammostrabby/autonomous-tractor',
-                'demo_link': 'https://demo.autonomous-tractor.com',
+                'title': 'An Efficient GPS-Based Path Planning Method for Autonomous Tractor Navigation',
+                'description': 'Developed and analyzed Spiral and S-shaped path planning strategies for efficient autonomous field coverage. Implemented GPS-based coordinate acquisition and real-time navigation using ESP32 and NEO-6M module. Designed mathematical models to evaluate path length, overlap distance, and cultivation time. Achieved optimized performance with Spiral pattern, reducing overlap and improving operational efficiency.',
+                'technologies': 'Python, GPS, ESP32, NEO-6M, Path Planning, Mathematics',
+                'github_link': '',
+                'demo_link': 'https://scholar.google.com/citations?user=zvpv-lwAAAAJ',
                 'featured': True
             },
             {
-                'title': 'Plant Disease Detection Mobile App',
-                'description': 'Created a mobile application that uses deep learning to identify plant diseases from leaf images. The app helps farmers diagnose crop diseases early and take preventive measures.',
-                'technologies': 'Python, TensorFlow, Flutter, Firebase, CNN',
-                'github_link': 'https://github.com/golammostrabby/plant-disease-detection',
-                'demo_link': 'https://play.google.com/store/apps/plant-disease',
+                'title': 'ML-Based Mobile App for Leaf Disease Detection & Solution Recommendation',
+                'description': 'Developed a mobile application integrated with a CNN-based model for real-time leaf disease classification. Implemented image preprocessing, prediction pipeline, and automated solution suggestions. Focused on practical agricultural deployment for crop health monitoring.',
+                'technologies': 'Python, TensorFlow, Keras, CNN, Android Studio, Image Processing',
+                'github_link': 'https://github.com/gmrabbi',
+                'demo_link': '',
                 'featured': True
             },
             {
-                'title': 'Few-Shot Learning Research',
-                'description': 'Conducted research on few-shot learning techniques for image classification. Implemented and compared various meta-learning approaches including MAML and Prototypical Networks.',
-                'technologies': 'PyTorch, Meta-Learning, Computer Vision, Research',
-                'github_link': 'https://github.com/golammostrabby/few-shot-learning',
+                'title': 'Real-Time Plant Disease Classification Using Few-Shot Learning',
+                'description': 'Designed an ML system to detect crop diseases using few-shot learning techniques. Optimized performance with limited labeled data. Integrated deployment feasibility for mobile platforms. Currently under review for publication.',
+                'technologies': 'Python, TensorFlow, Few-Shot Learning, Computer Vision, Mobile Deployment',
+                'github_link': 'https://github.com/gmrabbi',
+                'demo_link': '',
                 'featured': True
             },
             {
-                'title': 'Portable IoT Juice Maker',
-                'description': 'Designed and built a portable IoT-enabled juice maker with smart inventory management and recipe recommendations using machine learning.',
-                'technologies': 'Arduino, IoT, Machine Learning, Mobile App',
-                'github_link': 'https://github.com/golammostrabby/iot-juice-maker',
+                'title': 'Neural Network Model Development (ANN & CNN)',
+                'description': 'Built and trained ANN and CNN models for classification tasks. Applied normalization, StandardScaler, and hyperparameter tuning. Evaluated models using validation metrics and achieved optimal performance.',
+                'technologies': 'Python, TensorFlow, Keras, Scikit-learn, NumPy, Pandas',
+                'github_link': 'https://github.com/gmrabbi',
+                'demo_link': '',
+                'featured': False
+            },
+            {
+                'title': 'Portable IoT-Based Smart Juice Maker',
+                'description': 'Designed an ESP8266-based automated juice preparation system. Integrated motors, relays, Bluetooth, and IoT connectivity for remote control. Conducted technical and business feasibility analysis. Currently under review.',
+                'technologies': 'ESP8266, Arduino, Bluetooth, IoT, Circuit Design, Motors, Relays',
+                'github_link': 'https://github.com/gmrabbi',
+                'demo_link': '',
                 'featured': False
             }
         ]
@@ -127,29 +167,14 @@ def seed_database(app=None):
         # Create publications
         publications_data = [
             {
-                'title': 'Deep Learning Approaches for Agricultural Automation',
-                'journal': 'IEEE International Conference on Robotics and Automation',
-                'authors': 'Golam Mostafa Rabby, Dr. Ahmed Hossain',
-                'link': 'https://ieeexplore.ieee.org/document/9876543',
+                'title': 'An Efficient GPS-Based Path Planning Method for Autonomous Tractor Navigation',
+                'journal': 'Published Research',
+                'authors': 'Golam Mostafa Rabby',
+                'link': 'https://scholar.google.com/citations?user=zvpv-lwAAAAJ',
                 'status': 'Published',
-                'publication_date': date(2024, 3, 15)
+                'publication_date': date(2024, 1, 1)
             },
-            {
-                'title': 'Computer Vision in Precision Farming: A Comprehensive Review',
-                'journal': 'Journal of Artificial Intelligence Research',
-                'authors': 'Golam Mostafa Rabby, Prof. Mohammad Rahman',
-                'link': 'https://www.jair.org/index.php/jair/article/view/12345',
-                'status': 'Published',
-                'publication_date': date(2023, 11, 20)
-            },
-            {
-                'title': 'IoT-Based Smart Agriculture: Challenges and Solutions',
-                'journal': 'International Journal of Computer Applications',
-                'authors': 'Golam Mostafa Rabby, Dr. Karim Ahmed',
-                'link': 'https://www.ijcaonline.org/archives/volume180/number12/12345-6789',
-                'status': 'In Review',
-                'publication_date': None
-            }
+            # Add more publications as they are completed
         ]
 
         for pub_data in publications_data:
@@ -159,21 +184,37 @@ def seed_database(app=None):
         # Create certifications
         certifications_data = [
             {
-                'title': 'TensorFlow Developer Certificate',
-                'issuer': 'Google',
-                'issue_date': date(2024, 1, 15),
-                'expiry_date': date(2027, 1, 15),
-                'credential_id': 'TF123456789',
-                'credential_url': 'https://www.credential.net/tf123456789'
+                'title': 'Digital Security Essentials',
+                'issuer': 'Digital Security Agency',
+                'issue_date': date(2023, 1, 1),
+                'expiry_date': None,
+                'credential_id': '',
+                'credential_url': ''
             },
             {
-                'title': 'AWS Machine Learning Specialty',
-                'issuer': 'Amazon Web Services',
-                'issue_date': date(2023, 8, 10),
-                'expiry_date': date(2026, 8, 10),
-                'credential_id': 'AWS-ML-987654',
-                'credential_url': 'https://aws.amazon.com/verification'
-            }
+                'title': 'Problem Solving (Basic)',
+                'issuer': 'HackerRank',
+                'issue_date': date(2023, 6, 1),
+                'expiry_date': None,
+                'credential_id': '',
+                'credential_url': 'https://www.hackerrank.com'
+            },
+            {
+                'title': 'Complete Python Course',
+                'issuer': 'Kaggle',
+                'issue_date': date(2023, 9, 1),
+                'expiry_date': None,
+                'credential_id': '',
+                'credential_url': 'https://www.kaggle.com'
+            },
+            {
+                'title': 'Certificate in Python (Data Analysis)',
+                'issuer': 'EDGE Project, Bangladesh Computer Council (ICT Division)',
+                'issue_date': date(2023, 1, 1),
+                'expiry_date': None,
+                'credential_id': '',
+                'credential_url': ''
+            },
         ]
 
         for cert_data in certifications_data:
@@ -183,23 +224,59 @@ def seed_database(app=None):
         # Create leadership activities
         activities_data = [
             {
-                'title': 'Math Club President',
-                'organization': 'Dhaka University of Engineering & Technology',
-                'role': 'President',
-                'description': 'Led the Math Club with 200+ members, organized weekly seminars and competitive programming contests.',
+                'title': 'General Secretary & Senior Vice President',
+                'organization': 'Math Club, DUET',
+                'role': 'General Secretary & Senior Vice President',
+                'description': 'Led organizational activities, coordinated academic events and competitions, and contributed to increasing student engagement and participation.',
                 'start_date': date(2023, 1, 1),
-                'end_date': date(2024, 12, 31),
+                'end_date': date(2025, 12, 31),
                 'current': True
             },
             {
-                'title': 'IEEE Student Branch Volunteer',
-                'organization': 'IEEE DUET Student Branch',
-                'role': 'Technical Volunteer',
-                'description': 'Volunteered at IEEE conferences and workshops, assisted in organizing technical events and seminars.',
+                'title': 'Vice President',
+                'organization': 'RANGDHANU',
+                'role': 'Vice President',
+                'description': 'Organized cultural and extracurricular programs, managing event planning, team coordination, and execution.',
+                'start_date': date(2023, 1, 1),
+                'end_date': date(2025, 12, 31),
+                'current': True
+            },
+            {
+                'title': 'Member',
+                'organization': 'DUET Computer Society',
+                'role': 'Member',
+                'description': 'Participated in technical events, workshops, and collaborative activities focused on programming and innovation.',
                 'start_date': date(2022, 6, 1),
-                'end_date': date(2023, 12, 31),
+                'end_date': None,
+                'current': True
+            },
+            {
+                'title': 'Volunteer',
+                'organization': 'IUPC 2025 (May 9–10, 2025)',
+                'role': 'Technical Volunteer',
+                'description': 'Assisted in organizing inter-university programming contest operations, including participant coordination and event logistics.',
+                'start_date': date(2025, 5, 9),
+                'end_date': date(2025, 5, 10),
                 'current': False
-            }
+            },
+            {
+                'title': 'Volunteer',
+                'organization': 'NCIM 2nd International Conference (June 27–28, 2025)',
+                'role': 'Conference Volunteer',
+                'description': 'Supported international conference management, including guest handling, session coordination, and technical arrangements.',
+                'start_date': date(2025, 6, 27),
+                'end_date': date(2025, 6, 28),
+                'current': False
+            },
+            {
+                'title': 'Volunteer',
+                'organization': 'ICSHSD 2025 (October 23–24, 2025)',
+                'role': 'Conference Volunteer',
+                'description': 'Contributed to conference execution through logistics support, participant assistance, and session facilitation.',
+                'start_date': date(2025, 10, 23),
+                'end_date': date(2025, 10, 24),
+                'current': False
+            },
         ]
 
         for activity_data in activities_data:
